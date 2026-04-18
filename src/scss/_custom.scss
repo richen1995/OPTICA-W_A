@@ -6,7 +6,25 @@
 // custom tweaks for scrollbar styling (wip)
 @use "scrollbar";
 
- // custom calendar today cell color
+/* --- MEJORA DE PLACEHOLDERS --- 
+   Muchos usuarios confunden los placeholders con datos ya ingresados.
+   Aumentamos la transparencia para diferenciarlos claramente. */
+.form-control::placeholder, 
+textarea::placeholder, 
+input::placeholder {
+  opacity: 0.35 !important;
+  color: #adb5bd !important;
+  font-weight: 400 !important;
+}
+
+[data-coreui-theme="dark"] .form-control::placeholder,
+[data-coreui-theme="dark"] textarea::placeholder,
+[data-coreui-theme="dark"] input::placeholder {
+  opacity: 0.25 !important;
+  color: #6c757d !important;
+}
+
+// custom calendar today cell color
 .calendar-cell.today {
   --cui-calendar-cell-today-color: var(--cui-info) !important;
 }
@@ -14,4 +32,212 @@
 // custom select week cursor pointer
 .select-week .calendar-row.current {
   cursor: pointer;
+}
+
+// FIX: Asegura que las pestañas (nav-tabs) estén por encima del contenido y sean 100% clicables
+.nav-tabs {
+  position: relative;
+  z-index: 10 !important;
+  margin-bottom: 0 !important;
+}
+
+.nav-link {
+  position: relative;
+  z-index: 11 !important;
+}
+
+.tab-content {
+  position: relative;
+  z-index: 1;
+}
+
+// --- TEMA OSCURO AMIGABLE PARA ANGULAR MATERIAL Y COREUI ---
+[data-coreui-theme="dark"] {
+  --cui-body-bg: #1e2125;
+  --cui-tertiary-bg: #24272c;
+  --cui-border-color: #3b3f46;
+  --cui-card-bg: #24272c;
+  --cui-card-border-color: #3b3f46;
+  --cui-secondary-color: #a0aab5;
+
+  .mat-mdc-table {
+    background-color: var(--cui-card-bg) !important;
+    color: var(--cui-body-color) !important;
+  }
+  
+  .mat-mdc-header-row {
+    background-color: var(--cui-tertiary-bg) !important;
+  }
+  
+  .mat-mdc-header-cell {
+    color: var(--cui-secondary-color) !important;
+    font-weight: 600;
+  }
+
+  .mat-mdc-header-cell, .mat-mdc-cell {
+    color: var(--cui-body-color) !important;
+    border-bottom-color: var(--cui-border-color) !important;
+  }
+  
+  .mat-row:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .mat-mdc-card {
+    background-color: var(--cui-card-bg) !important;
+    color: var(--cui-body-color) !important;
+    border: 1px solid var(--cui-border-color) !important;
+  }
+
+  .mat-mdc-card-title {
+    color: #4da3ff !important;
+  }
+  
+  .mat-mdc-paginator {
+    background-color: var(--cui-card-bg) !important;
+    color: var(--cui-secondary-color) !important;
+  }
+
+  .mat-mdc-paginator-icon {
+    fill: var(--cui-body-color) !important;
+  }
+
+  .mdc-text-field--outlined {
+    .mdc-notched-outline__leading, 
+    .mdc-notched-outline__notch, 
+    .mdc-notched-outline__trailing {
+      border-color: var(--cui-border-color) !important;
+    }
+    .mdc-text-field__input {
+      color: #e2e8f0 !important;
+    }
+  }
+
+  .mat-mdc-form-field-label, 
+  .mat-mdc-form-field-icon-suffix {
+    color: var(--cui-secondary-color) !important;
+  }
+  
+  .mdc-floating-label--float-above {
+    background: var(--cui-card-bg) !important;
+    color: #4da3ff !important;
+  }
+
+  .form-control, .form-select {
+    background-color: var(--cui-card-bg) !important;
+    color: var(--cui-body-color) !important;
+    border-color: var(--cui-border-color) !important;
+
+    &:focus {
+      background-color: #2b3038 !important;
+      border-color: #0d6efd !important;
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25) !important;
+    }
+  }
+
+  .form-floating > label {
+    color: var(--cui-secondary-color) !important;
+  }
+  
+  body {
+    background-color: var(--cui-body-bg) !important;
+  }
+}
+
+// ==========================================
+// --- BOTONES PREMIUM & RESPONSIVE ---
+// ==========================================
+.btn-premium {
+  position: relative;
+  border: none !important;
+  border-radius: 10px !important; // Un poco más serio para web
+  font-weight: 500 !important;
+  letter-spacing: 0.2px;
+  text-transform: none !important;
+  font-size: 0.875rem !important; // Fuente estándar web
+  padding: 8px 18px !important; // Más compacto en web
+  transition: all 0.15s ease-in-out !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 38px;
+  width: auto !important;
+  max-width: 280px; // Límite para que no sea invasivo en escritorio
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97) !important;
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none !important;
+  }
+
+  i, mat-icon {
+    font-size: 1.1rem;
+  }
+
+  // --- MÓVIL (Solo en pantallas realmente pequeñas) ---
+  @media (max-width: 576px) {
+    width: 100% !important; 
+    margin-bottom: 8px;
+    min-height: 52px !important;
+    border-radius: 14px !important;
+    font-size: 1.05rem !important;
+    font-weight: 600 !important;
+    padding: 12px 24px !important;
+    
+    &.btn-premium-primary { background: #007aff !important; color: white !important; }
+    &.btn-premium-success { background: #28a745 !important; color: white !important; }
+    &.btn-premium-warning { background: #ff9500 !important; color: white !important; }
+  }
+}
+
+.btn-premium-primary {
+  @extend .btn-premium;
+  background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%) !important;
+  color: white !important;
+}
+
+.btn-premium-success {
+  @extend .btn-premium;
+  background: linear-gradient(135deg, #198754 0%, #20c997 100%) !important;
+  color: white !important;
+}
+
+.btn-premium-warning {
+  @extend .btn-premium;
+  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+  color: #1e2125 !important;
+}
+
+.btn-premium-info {
+  @extend .btn-premium;
+  background: linear-gradient(135deg, #0dcaf0 0%, #0d6efd 100%) !important;
+  color: white !important;
+}
+
+.btn-premium-lg {
+  @extend .btn-premium;
+  padding: 10px 24px !important;
+  border-radius: 10px !important;
+  font-size: 0.9rem !important;
+  min-height: 44px; // LG en web es sutil
+
+  @media (max-width: 768px) {
+    min-height: 58px !important;
+    border-radius: 18px !important;
+    padding: 14px 40px !important;
+  }
 }

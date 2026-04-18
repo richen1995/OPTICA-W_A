@@ -1,0 +1,319 @@
+:host ::ng-deep {
+
+    // --- ESTILOS DE DÍA (CLARO) ---
+    .history-detail {
+        background: transparent;
+        padding: 0; // Se ajusta para encajar con el WOW design exterior
+        min-height: 100vh;
+    }
+
+    mat-expansion-panel {
+        border-radius: 12px !important;
+        margin-bottom: 18px !important;
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05) !important;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+        }
+    }
+
+    mat-expansion-panel-header {
+        background: linear-gradient(90deg, #f8f9fa, #ffffff);
+        font-weight: 600;
+        font-size: 15px;
+        color: #0f172a;
+    }
+
+    mat-card {
+        border-radius: 12px !important;
+        border: 1px solid #e5e7eb;
+        box-shadow: none !important;
+        background: transparent; // Usa el fondo del expansion panel
+        padding: 20px !important;
+        margin-bottom: 15px;
+    }
+
+    mat-card .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .patient-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
+
+    .patient-card .row>div,
+    .data-box {
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 12px;
+    }
+
+    //TABLAS
+    .medical-table {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+    }
+
+    .medical-table thead {
+        background: #f1f5f9;
+        font-weight: 600;
+    }
+
+    .medical-table th {
+        color: #334155;
+        border: none !important;
+        padding: 12px;
+    }
+
+    .medical-table td {
+        vertical-align: middle;
+        border-color: #e5e7eb;
+        color: #0f172a;
+        padding: 12px;
+    }
+
+    .medical-table tbody tr {
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background: #f8fafc;
+        }
+    }
+
+    //TEXTO
+    strong {
+        color: #0d6efd; // Azul primario bootstrap
+        font-weight: 600;
+    }
+
+    p {
+        margin-bottom: 0;
+        color: #334155;
+        font-size: 14px;
+    }
+
+    // --- ESTILOS DE NOCHE (OSCURO) LOCAL ---
+    :host-context([data-coreui-theme="dark"]) & {
+
+        mat-expansion-panel {
+            background: rgba(36, 39, 44, 0.95) !important;
+            border-color: var(--cui-border-color) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .3) !important;
+
+            mat-expansion-panel-header {
+                background: linear-gradient(90deg, #1e2125, #24272c) !important;
+                color: var(--cui-body-color) !important;
+
+                .mat-expansion-indicator::after {
+                    color: var(--cui-body-color) !important;
+                }
+            }
+        }
+
+        mat-card {
+            border-color: var(--cui-border-color) !important;
+            background: rgba(36, 39, 44, 0.5) !important;
+            color: var(--cui-body-color) !important;
+        }
+
+        .patient-card {
+            background: rgba(36, 39, 44, 0.95) !important;
+            border-color: var(--cui-border-color) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .3) !important;
+        }
+
+        .patient-card .row>div,
+        .data-box {
+            background: #1e2125 !important;
+            border-color: var(--cui-border-color) !important;
+            color: #e2e8f0 !important;
+        }
+
+        // Tablas custom oscuras
+        .medical-table {
+            border-color: var(--cui-border-color) !important;
+            background: var(--cui-card-bg) !important;
+            color: var(--cui-body-color) !important;
+        }
+
+        .medical-table thead {
+            background: var(--cui-tertiary-bg) !important;
+        }
+
+        .medical-table th {
+            color: var(--cui-secondary-color) !important;
+        }
+
+        .medical-table td {
+            border-bottom-color: var(--cui-border-color) !important;
+            color: #e2e8f0 !important;
+        }
+
+        .medical-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        strong {
+            color: #4da3ff !important; // Azul brillante legible en oscuro
+        }
+
+        p {
+            color: #cbd5e1 !important; // Gris claro para texto normal
+        }
+
+        .no-data-msg-container {
+            border: 2px dashed rgba(255, 255, 255, 0.1) !important;
+            background: rgba(255, 255, 255, 0.02) !important;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+
+            p {
+                color: #94a3b8 !important;
+            }
+
+            mat-icon {
+                font-size: 32px;
+                width: 32px;
+                height: 32px;
+                color: #94a3b8;
+                margin-bottom: 8px;
+            }
+        }
+    }
+
+    // --- ESTILOS COMUNES FUERA DE DARK MODE ---
+    .no-data-msg-container {
+        border: 2px dashed #cbd5e1;
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        margin: 10px 0;
+
+        mat-icon {
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            color: #64748b !important;
+            margin: 0 !important;
+        }
+    }
+
+    // BOTONES COMPACTOS
+    .btn-compact {
+        height: 32px !important;
+        font-size: 13px !important;
+        padding: 0 12px !important;
+        border-radius: 8px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        mat-icon {
+            font-size: 18px !important;
+            width: 18px !important;
+            height: 18px !important;
+            margin-right: 4px !important;
+            margin-left: -2px !important;
+        }
+    }
+
+    // --- REFINAMIENTO DE TABLAS MÓVIL (STACKED) ---
+    @media (max-width: 768px) {
+        
+        // Reducir padding del mat-card para ganar espacio lateral
+        mat-card {
+            padding: 10px 5px !important;
+            border: none !important;
+        }
+
+        .table-responsive {
+            margin: 0;
+            padding: 0;
+            overflow: visible; // Evitar scrolls innecesarios si estamos apilando
+        }
+
+        .table-stack-mobile {
+            display: block !important;
+            width: 100% !important;
+            margin: 0 !important;
+            border: none !important;
+
+            tr {
+                display: block !important;
+                width: 100% !important; // FORZAR ANCHO TOTAL
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                margin-bottom: 20px !important;
+                border: 1px solid #e2e8f0 !important;
+                border-radius: 12px !important;
+                padding: 5px !important;
+                background: #ffffff !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+            }
+
+            td {
+                display: flex !important;
+                width: 100% !important; // CADA CELDA AL 100%
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 10px 15px !important;
+                border: none !important;
+                border-bottom: 1px solid #f1f5f9 !important;
+                text-align: right !important;
+                font-size: 14px !important;
+
+                &:last-child {
+                    border-bottom: none !important;
+                }
+
+                &::before {
+                    content: attr(data-label);
+                    float: left;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    font-size: 11px;
+                    color: #64748b;
+                    min-width: 100px;
+                    text-align: left;
+                }
+
+                &.text-primary {
+                    color: #0d6efd !important;
+                    font-weight: 700 !important;
+                }
+
+                &.text-success {
+                    color: #198754 !important;
+                    font-weight: 700 !important;
+                }
+            }
+        }
+    }
+}

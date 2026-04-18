@@ -4,14 +4,9 @@ export const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Theme'
+      title: ''
     },
     children: [
-      {
-        path: '',
-        redirectTo: 'colors',
-        pathMatch: 'full'
-      },
       {
         path: 'colors',
         loadComponent: () => import('./colors.component').then(m => m.ColorsComponent),
@@ -23,7 +18,14 @@ export const routes: Routes = [
         path: 'patients',
         loadComponent: () => import('./patients.component').then(m => m.PatientsComponent),
         data: {
-          title: 'Pacientesss'
+          title: 'Examen Optométrico'
+        }
+      },
+      {
+        path: 'patient-detail',
+        loadComponent: () => import('./patient-detail/patient-detail.component').then(m => m.PatientDetailComponent),
+        data: {
+          title: 'Historial Médico'
         }
       },
       {

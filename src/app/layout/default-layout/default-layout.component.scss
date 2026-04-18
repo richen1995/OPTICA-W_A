@@ -9,8 +9,18 @@
   }
 
   .ng-scroll-content {
-    display: flex;
+    display: flex;  
     min-height: 100%;
+  }
+
+  .sidebar {
+    background-color: rgb(10, 175, 250) !important; /* tu color personalizado */
+  }
+
+  .c-sidebar-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   //.sidebar-nav {

@@ -1,196 +1,303 @@
-<div class="card">
-    <div class="card-header">
-      Datos Personales
-    </div>
-    <div class="card-body">
-       <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" class="row g-4">
-        <div class="col-md-6" *ngFor="let field of ['apellidos']">
-          <div class="form-group row">
-            <label for="validationServer01" class="col-sm-3 col-form-label">Apellidos</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingrese los Apellidos" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
+<div class="container-fluid pt-0 pb-3">
+  <!-- Cabecera de Paciente -->
+  <div class="row mb-2 animate__animated animate__fadeIn">
+    <div class="col-12">
+      <div class="card py-2 px-3 d-flex flex-row align-items-center justify-content-center text-center overflow-hidden position-relative" 
+           [ngClass]="isEditMode ? 'bg-warning text-dark' : 'bg-primary text-white'"
+           style="min-height: auto;">
+        <div class="z-index-1">
+          <h4 class="mb-0 fw-bold" *ngIf="objPerson">
+            <i class="bi bi-person-badge me-2"></i>
+            {{ (objPerson.first_name && objPerson.last_name) ? (objPerson.first_name + ' ' + objPerson.last_name) : 'NUEVO CLIENTE' }}
+            <span *ngIf="isEditMode" class="badge bg-danger ms-2 animate__animated animate__pulse animate__infinite">MODO EDICIÓN</span>
+          </h4>
+          <small class="mb-0 opacity-75 d-block">
+            {{ isEditMode ? 'Actualizando un historial médico existente' : 'Gestión de datos personales e historia clínica' }}
+          </small>
         </div>
-        <div class="col-md-6" *ngFor="let field of ['nombres']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-3 col-form-label">Nombres</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingrese los Nombres" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6" *ngFor="let field of ['lugarNacimiento']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Lugar de nacimento</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingrese el lugar de Nacimiento" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div class="col-md-6" *ngFor="let field of ['fechaNacimiento']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Fecha de nacimento</label>
-            <div class="col-sm-8">
-              <input type="date" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingrese los Apellidos" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div class="col-md-6" *ngFor="let field of ['cedula']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Cédula</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingrese el numero de cedula" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6" *ngFor="let field of ['edad']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Edad</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingrese de la edad" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Género</label>
-            <div class="col-sm-8">
-              <select class="form-select" id="genero" required>
-                <option selected disabled>Seleccione una opción</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-                <option value="Otro">Otro</option>
-              </select>
-              <div class="valid-feedback">
-                ¡Se ve bien!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6" *ngFor="let field of ['ocupacion']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Ocupación</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingrese su ocupación" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6" *ngFor="let field of ['correo']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Correo Electrónico</label>
-            <div class="col-sm-8">
-              <input type="email" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingreso Correo Electrónico" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6" *ngFor="let field of ['direccion']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label" >Dirección</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingreso de Dirección" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6" *ngFor="let field of ['telefono']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Teléfono</label>
-            <div class="col-sm-8">
-              <input type="tel" class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Ingreso de Telefono" required>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Procedencia</label>
-            <div class="col-sm-8">
-              <select class="form-select" id="procedencia" required>
-                <option selected disabled>Seleccione una opción</option>
-                <option value="Urbana">Urbana</option>
-                <option value="Rural">Rural</option>
-              </select>
-              <div class="valid-feedback">
-                ¡Se ve bien!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">¿Usa Lentes?</label>
-            <div class="col-sm-8">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="usaLentes" id="lentesSi" value="Si" required>
-                <label class="form-check-label" for="lentesSi">Sí</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="usaLentes" id="lentesNo" value="No" required>
-                <label class="form-check-label" for="lentesNo">No</label>
-              </div>
-              <div class="valid-feedback">
-                ¡Se ve bien!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-4 col-form-label">Último Control Médico</label>
-            <div class="col-sm-8">
-              <input type="date" class="form-control" id="validationServer02"  required>
-              <div class="valid-feedback">
-                ¡Se ve bien!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12" *ngFor="let field of ['motivoConsulta']">
-          <div class="form-group row">
-            <label for="validationServer02" class="col-sm-2 col-form-label">Motivo de Consulta</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" [formControlName]="field" [ngClass]="{'is-invalid': formulario.get(field)?.invalid && formulario.get(field)?.touched, 'is-valid': formulario.get(field)?.valid && formulario.get(field)?.touched}" placeholder="Describa el motivo de su consulta" id="validationServer02" required></textarea>
-              <div class="invalid-feedback" *ngIf="formulario.get(field)?.invalid && formulario.get(field)?.touched">
-                Campo obligatorio o formato incorrecto
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12">
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </div>
-
-      </form> 
-    </div>
+        <i class="bi bi-hospital position-absolute end-0 bottom-0 opacity-25 display-4 pe-3 pb-1"></i>
+      </div>
+    </div> 
   </div>
-  
+
+  <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+    <!-- Tabs Principales -->
+    <ul class="nav nav-tabs custom-main-tabs mb-0" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">
+          <i class="bi bi-person-lines-fill me-2"></i>Datos Personales
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" 
+                [class.disabled]="idPerson <= 0" 
+                (click)="idPerson <= 0 ? notifyNoPerson() : null" 
+                [attr.data-bs-toggle]="idPerson > 0 ? 'tab' : null" 
+                id="tab2-tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">
+          <i class="bi bi-clipboard2-pulse me-2"></i>Historia Clínica
+        </button>
+      </li>
+    </ul>
+
+    <!-- CONTENIDO DE LOS TABS -->
+    <div class="tab-content card border-0" id="myTabContent">
+      
+      <!-- TAB 1: DATOS PERSONALES -->
+      <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+        <div class="card-body">
+          <div class="row g-2">
+            <!-- Cédula / Búsqueda -->
+            <div class="col-12 col-md-4" *ngFor="let field of ['identification']">
+              <div class="form-floating position-relative">
+                <input type="text" class="form-control border-primary pe-5" [formControlName]="field" id="floatId" placeholder="Cédula" 
+                       (blur)="buscarPaciente()" (keyup.enter)="buscarPaciente()"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatId"><i class="bi bi-person-search me-1 text-primary"></i> Cédula (Buscar)</label>
+                
+                <!-- Spinner de búsqueda -->
+                <div class="position-absolute top-50 end-0 translate-middle-y pe-3" *ngIf="isSearching" style="z-index: 10;">
+                  <mat-spinner diameter="25"></mat-spinner>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4" *ngFor="let field of ['last_name']">
+              <div class="form-floating">
+                <input type="text" class="form-control" [formControlName]="field" id="floatLast" placeholder="Apellidos"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatLast"><i class="bi bi-person me-1"></i> Apellidos</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4" *ngFor="let field of ['first_name']">
+              <div class="form-floating">
+                <input type="text" class="form-control" [formControlName]="field" id="floatFirst" placeholder="Nombres"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatFirst"><i class="bi bi-person me-1"></i> Nombres</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4" *ngFor="let field of ['place_birth']">
+              <div class="form-floating">
+                <input type="text" class="form-control" [formControlName]="field" id="floatPlace" placeholder="Lugar de nacimiento"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatPlace"><i class="bi bi-geo-alt me-1"></i> Lugar de nacimiento</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4" *ngFor="let field of ['f_birthdate']">
+              <div class="form-floating">
+                <input type="date" class="form-control" [formControlName]="field" id="floatDate" (change)="edad = calcularEdad()"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatDate"><i class="bi bi-calendar-event me-1"></i> Fecha de nacimiento</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="age-badge" *ngIf="edad !== null">
+                <i class="bi bi-clock-history"></i>
+                <div class="d-flex flex-column">
+                  <small class="text-muted" style="font-size: 0.7rem; text-transform: uppercase;">Edad</small>
+                  <span>{{edad}} años</span>
+                </div>
+              </div>
+              <div class="age-badge bg-light border-0 opacity-50" *ngIf="edad === null">
+                 <i class="bi bi-clock-history opacity-25"></i>
+                 <span class="text-muted ms-2">-- años</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="form-floating">
+                <select class="form-select" id="genderSelect" formControlName="gender"
+                        [class.is-invalid]="formulario.get('gender')?.invalid && formulario.get('gender')?.touched"
+                        [class.is-valid]="formulario.get('gender')?.valid && formulario.get('gender')?.touched">
+                  <option selected disabled>Seleccione una opción</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Otro">Otro</option>
+                </select>
+                <label for="genderSelect"><i class="bi bi-gender-ambiguous me-1"></i> Género</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6" *ngFor="let field of ['ocupation']">
+              <div class="form-floating">
+                <input type="text" class="form-control" [formControlName]="field" id="floatOcup" placeholder="Ocupación"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatOcup"><i class="bi bi-briefcase me-1"></i> Ocupación</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6" *ngFor="let field of ['email']">
+              <div class="form-floating">
+                <input type="email" class="form-control" [formControlName]="field" id="floatEmail" placeholder="Correo Electrónico"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatEmail"><i class="bi bi-envelope me-1"></i> Correo Electrónico</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6" *ngFor="let field of ['address']">
+              <div class="form-floating">
+                <input type="text" class="form-control" [formControlName]="field" id="floatAddr" placeholder="Dirección"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatAddr"><i class="bi bi-house me-1"></i> Dirección Domiciliaria</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6" *ngFor="let field of ['phone']">
+              <div class="form-floating">
+                <input type="tel" class="form-control" [formControlName]="field" id="floatPhone" placeholder="Teléfono"
+                       [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                       [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                <label for="floatPhone"><i class="bi bi-telephone me-1"></i> Teléfono</label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="form-floating">
+                <select class="form-select" id="provenanceSelect" formControlName="provenance"
+                        [class.is-invalid]="formulario.get('provenance')?.invalid && formulario.get('provenance')?.touched"
+                        [class.is-valid]="formulario.get('provenance')?.valid && formulario.get('provenance')?.touched">
+                  <option selected disabled>Seleccione una opción</option>
+                  <option value="Sierra">Sierra</option>
+                  <option value="Costa">Costa</option>
+                  <option value="Amazonia">Amazonia</option>
+                  <option value="Region Insular">Region Insular</option>
+                </select>
+                <label for="provenanceSelect"><i class="bi bi-map me-1"></i> Procedencia</label>
+              </div>
+            </div>
+            
+            <div class="col-12 mt-4 text-center text-md-end">
+              <button type="submit" 
+                      [ngClass]="{
+                        'btn-premium-primary': idPerson <= 0,
+                        'btn-premium-info': idPerson > 0 && formulario.dirty,
+                        'btn-premium-success': idPerson > 0 && !formulario.dirty
+                      }"
+                      class="btn-premium shadow-sm transition-all animate__animated animate__fadeIn">
+                
+                <!-- CASO 1: PERSONA NUEVA (CREAR) -->
+                <ng-container *ngIf="idPerson <= 0">
+                  <i class="bi bi-person-plus me-2"></i>Crear y Continuar
+                </ng-container>
+
+                <!-- CASO 2: PERSONA ENCONTRADA PERO CON CAMBIOS (ACTUALIZAR) -->
+                <ng-container *ngIf="idPerson > 0 && formulario.dirty">
+                  <i class="bi bi-pencil-square me-2"></i>Actualizar y Continuar
+                </ng-container>
+
+                <!-- CASO 3: PERSONA ENCONTRADA SIN CAMBIOS (SÓLO SIGUIENTE) -->
+                <ng-container *ngIf="idPerson > 0 && !formulario.dirty">
+                  <span class="me-2">Continuar al Examen</span>
+                  <i class="bi bi-chevron-right"></i>
+                </ng-container>
+
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: HISTORIA CLÍNICA / CONSULTA -->
+      <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+        <div class="card border-0">
+          <div class="card-body">
+            
+            <!-- Subtabs Nav -->
+            <ul class="nav nav-pills custom-subtabs mb-0" id="subTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="examen-tab" data-bs-toggle="pill" data-bs-target="#examen" type="button" role="tab">Examen Visual</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="lensometria-tab" 
+                        [class.disabled]="idPerson <= 0"
+                        (click)="idPerson <= 0 ? notifyNoPerson() : null"
+                        [attr.data-bs-toggle]="idPerson > 0 ? 'pill' : null" 
+                        data-bs-target="#lensometria" type="button" role="tab">Lensometría</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="agudeza-tab" 
+                        [class.disabled]="idPerson <= 0"
+                        (click)="idPerson <= 0 ? notifyNoPerson() : null"
+                        [attr.data-bs-toggle]="idPerson > 0 ? 'pill' : null" 
+                        data-bs-target="#agudeza" type="button" role="tab">Agudeza Visual</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="rx_final-tab" 
+                        [class.disabled]="idPerson <= 0"
+                        (click)="idPerson <= 0 ? notifyNoPerson() : null"
+                        [attr.data-bs-toggle]="idPerson > 0 ? 'pill' : null" 
+                        data-bs-target="#rx_final" type="button" role="tab">RX Final</button>
+              </li>
+            </ul>
+
+            <!-- Contenido de Subtabs -->
+            <div class="tab-content border p-1 rounded bg-white shadow-sm" id="subTabsContent">
+              <!-- SUBTAB 1: Historia -->
+              <div class="tab-pane fade show active" id="examen" role="tabpanel">
+                <app-medical-record 
+                  [id_person]="idPerson" 
+                  [id_medical_record]="idMedicalRecord" 
+                  [personJSON]="objPerson" 
+                  (objMedicalRecord)="recibirObjMedicalRecord($event)" 
+                  (nextStep)="goToTab('lensometria-tab')"
+                  (recordSaved)="recibirNuevaHistoria($event)"
+                  [hideSaveButton]="true">
+                </app-medical-record>
+              </div>
+
+              <!-- SUBTAB 2: Lensometría -->
+              <div class="tab-pane fade" id="lensometria" role="tabpanel">
+                <app-lensometry 
+                  [id_medical_record]="idMedicalRecord" 
+                  [medicalRecordJSON]="objMedicalRecord" 
+                  [hideSaveButton]="true">
+                </app-lensometry>
+              </div>
+
+              <!-- SUBTAB 3: Agudeza Visual -->
+              <div class="tab-pane fade" id="agudeza" role="tabpanel">
+                <app-visual-acuity 
+                  [id_medical_record]="idMedicalRecord" 
+                  [medicalRecordJSON]="objMedicalRecord" 
+                  [hideSaveButton]="true">
+                </app-visual-acuity>
+              </div>
+
+              <!-- SUBTAB 4: RX Final -->
+              <div class="tab-pane fade" id="rx_final" role="tabpanel">
+                <app-rx 
+                  [id_medical_record]="idMedicalRecord" 
+                  [medicalRecordJSON]="objMedicalRecord" 
+                  [hideSaveButton]="true">
+                </app-rx>
+              </div>
+            </div>
+
+            <!-- Botonera de Guardado Global -->
+            <div class="col-12 d-flex justify-content-center justify-content-md-end mt-4 pt-3 border-top" *ngIf="idPerson > 0">
+              <button class="btn-premium-lg shadow-lg" 
+                      [ngClass]="isComplete ? 'btn-premium-primary' : (isEditMode ? 'btn-premium-warning' : 'btn-premium-success')"
+                      (click)="guardarConsultaCompleta()"
+                      [disabled]="isSaving || isComplete || !isRxFormValid">
+                <i class="bi me-2" [ngClass]="isComplete ? 'bi-shield-check' : (isSaving ? 'bi-hourglass-split' : (isEditMode ? 'bi-pencil-square' : 'bi-cloud-check-fill'))"></i>
+                {{ isComplete ? 'EXAMEN GUARDADO' : (isSaving ? 'GUARDANDO...' : (isEditMode ? 'ACTUALIZAR EXAMEN COMPLETO' : 'GUARDAR EXAMEN COMPLETO')) }}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div> <!-- Cierra myTabContent -->
+  </form>
+</div> <!-- Cierra container-fluid -->

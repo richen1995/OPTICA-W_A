@@ -1,0 +1,126 @@
+/* Estilos Responsivos para Receta (Rx) */
+.table-responsive {
+    border: none;
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .table thead {
+        display: none;
+    }
+
+    .table,
+    .table tbody,
+    .table tr,
+    .table td,
+    .table th {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        background: #fff;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .table th {
+        background-color: #f8f9fa !important;
+        color: #495057;
+        font-weight: 800;
+        text-align: center;
+        border: none !important;
+        border-bottom: 2px solid #6f42c1 !important;
+        /* Púrpura para Rx */
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        padding: 10px !important;
+    }
+
+    .table td {
+        text-align: left;
+        padding: 10px 5px !important;
+        border: none !important;
+        position: relative;
+        padding-top: 25px !important;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #6c757d;
+        text-transform: uppercase;
+    }
+}
+
+// --- SOPORTE PARA MODO OSCURO (DARK THEME) ---
+:host-context([data-coreui-theme="dark"]) {
+    .table {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+        background-color: var(--cui-card-bg) !important;
+        color: var(--cui-body-color) !important;
+
+        thead th {
+            background-color: var(--cui-tertiary-bg) !important;
+            color: var(--cui-body-color) !important;
+            border-bottom-color: var(--cui-border-color) !important;
+        }
+
+        td,
+        th {
+            border-color: var(--cui-border-color) !important;
+            background-color: var(--cui-card-bg) !important;
+            color: var(--cui-body-color) !important;
+        }
+    }
+
+    label {
+        color: var(--cui-secondary-color) !important;
+    }
+
+    .form-control,
+    textarea.form-control,
+    .form-select {
+        background-color: var(--cui-body-bg) !important;
+        border-color: var(--cui-border-color) !important;
+        color: var(--cui-body-color) !important;
+
+        &:focus {
+            background-color: #2b3038 !important;
+            border-color: #0d6efd !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .table tr {
+            background: var(--cui-card-bg) !important;
+            border-color: var(--cui-border-color) !important;
+        }
+
+        .table th {
+            background-color: var(--cui-tertiary-bg) !important;
+            color: var(--cui-body-color) !important;
+            border-bottom-color: var(--cui-border-color) !important;
+        }
+
+        .table td {
+            background: var(--cui-card-bg) !important;
+        }
+
+        .table td::before {
+            color: var(--cui-secondary-color) !important;
+        }
+    }
+}

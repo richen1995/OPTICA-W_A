@@ -1,0 +1,192 @@
+
+<!-- <div *ngIf="listMedicalRecordsExtended && listMedicalRecordsExtended.length > 0; else noData"> --> <!-- *ngIf="historias?.length; else noData"> -->
+<!-- ================= DESKTOP ================= -->
+<div *ngIf="!id_medical_record && !isMobile">
+  <app-history-search></app-history-search>
+    <div class="card shadow-sm mt-0">
+    <div class="card-body pt-1">
+      <!-- Búsqueda rápida (Versión Escritorio) -->
+      <div class="row mb-1">
+        <div class="col-12 col-md-5">
+          <div class="d-flex align-items-center search-container">
+            <mat-icon color="primary" class="me-3 fs-5 opacity-75">search</mat-icon>
+            <input 
+              type="text" 
+              class="form-control border-0 bg-transparent shadow-none p-0 w-100" 
+              (keyup)="applyFilter($event)" 
+              placeholder="Escribe para buscar paciente..."
+              style="outline: none;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Angular Material Table -->
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="w-100"
+        [hidden]="dataSource.data.length === 0">
+
+        <!-- # -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <span>{{ i + 1 }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Identificación -->
+        <ng-container matColumnDef="identificacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>CÉDULA</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.person.identification }}
+          </td>
+        </ng-container>
+
+        <!-- Paciente -->
+        <ng-container matColumnDef="paciente">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>PACIENTE</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.person.first_name + ' ' + row.person.last_name}}
+          </td>
+        </ng-container>
+
+        <!-- Fecha -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>FECHA ATENCIÓN</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.f_creation | date:'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+
+        <!-- Motivo -->
+        <ng-container matColumnDef="motivo">
+          <th mat-header-cell *matHeaderCellDef>MOTIVO</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.reasons_for_visit }}
+          </td>
+        </ng-container>
+
+        <!-- Acciones -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <div class="d-flex gap-1 justify-content-end">
+              <button mat-icon-button color="primary" (click)="verDetalle(row.id_medical_record)" matTooltip="Ver detalle">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="editarExamen(row.id_medical_record)" matTooltip="Editar historia">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <!-- Paginador -->
+      <mat-paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        [hidden]="dataSource.data.length === 0">
+      </mat-paginator>
+
+      <div *ngIf="dataSource.data.length === 0"
+          class="alert alert-info text-center">
+        No se encontraron historias clínicas.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= MOBILE ================= -->
+<div *ngIf="isMobile && !id_medical_record">
+
+  <app-history-search></app-history-search>
+
+  <!-- Búsqueda rápida (Versión Móvil) -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="d-flex align-items-center search-container">
+        <mat-icon color="primary" class="me-3 fs-5 opacity-75">search</mat-icon>
+        <input 
+          type="text" 
+          class="form-control border-0 bg-transparent shadow-none p-0 w-100" 
+          (keyup)="applyFilter($event)" 
+          placeholder="Escribe para buscar..."
+          style="outline: none;">
+      </div>
+    </div>
+  </div>
+
+  <mat-card *ngFor="let row of dataSource.filteredData | slice:0:mobileVisibleCount"
+          class="mb-3 shadow-sm border-0">
+  <!--   <mat-card *ngFor="let row of pagedData" class="mb-3 shadow-sm border-0"> -->
+
+    <mat-card-header>
+      <mat-card-title class="fw-bold text-primary">
+        {{ row.person.first_name + ' ' + row.person.last_name || 'Paciente sin nombre' }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="pt-3">
+      <div class="row g-2">
+        <div class="col-12">
+          <strong>Identificación:</strong> {{ row.person.identification || 'N/A' }}
+        </div>
+        <div class="col-12">
+          <strong>Fecha:</strong> {{ (row.f_creation | date:'dd/MM/yyyy') || 'N/A' }}
+        </div>
+        <div class="col-12">
+          <strong>Motivo:</strong> 
+          <span class="text-muted">{{ row.reasons_for_visit || 'Sin motivo registrado' }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="pb-3 pe-3 gap-2">
+      <button mat-stroked-button color="primary"
+        (click)="verDetalle(row.id_medical_record)">
+        <mat-icon>visibility</mat-icon> Detalle
+      </button>
+      <button mat-raised-button color="accent"
+        (click)="editarExamen(row.id_medical_record)">
+        <mat-icon>edit</mat-icon> Editar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- BOTÓN CARGAR MÁS -->
+  <button
+    *ngIf="mobileVisibleCount < dataSource.filteredData.length"
+    mat-stroked-button
+    color="primary"
+    class="w-100 mt-3"
+    (click)="loadMore()">
+    Cargar más
+  </button>
+
+  <div *ngIf="dataSource.filteredData.length === 0"
+    class="alert alert-info text-center">
+    No se encontraron historias clínicas.
+  </div>
+
+</div>
+
+<!-- ================= DETAIL ================= -->
+<div *ngIf="id_medical_record">
+  <button mat-button  (click)="volverAlListado()" class="mb-3" style="color: #00ACFF;">
+      ← Volver al listado
+  </button>
+
+  <app-history-detail 
+    [arrayMedicalRecordsExtended]="listMedicalRecordsExtended" 
+    [id_record]="id_medical_record">
+  </app-history-detail>
+</div>
+

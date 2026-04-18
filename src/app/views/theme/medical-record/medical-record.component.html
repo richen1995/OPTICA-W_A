@@ -1,0 +1,109 @@
+<form [formGroup]="formularioMedicalRecord" (ngSubmit)="enviarFormulario()" class="medical-record-form px-2">
+    <div class="row g-2 align-items-end">
+        <!-- Fila 1: Todo en uno -->
+        <div class="col-12 col-md-3">
+            <div class="card border-0 bg-light-subtle shadow-sm mb-0">
+                <div class="card-body p-2 d-flex align-items-center justify-content-between" style="min-height: 38px;">
+                    <label class="text-uppercase text-muted fw-bold mb-0 me-2" style="font-size: 10px;">
+                        <i class="bi bi-glasses me-1"></i>¿Usa Lentes?
+                    </label>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline me-1 mb-0">
+                            <input class="form-check-input" style="width: 13px; height: 13px;" type="radio" formControlName="uses_glasses" id="lentesSi" value="Si">
+                            <label class="form-check-label fw-medium" style="font-size: 11px;" for="lentesSi">SÍ</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0 me-0">
+                            <input class="form-check-input" style="width: 13px; height: 13px;" type="radio" formControlName="uses_glasses" id="lentesNo" value="No">
+                            <label class="form-check-label fw-medium" style="font-size: 11px;" for="lentesNo">NO</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <div class="form-group mb-0">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-clock-history me-1"></i>Último Control
+                </label>
+                <input type="text" class="form-control form-control-sm" formControlName="last_checkup" placeholder="Ej: 6 meses">
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="form-group mb-0">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-question-circle me-1"></i>Motivo de Consulta
+                </label>
+                <input type="text" class="form-control form-control-sm" formControlName="reasons_for_visit" placeholder="Ej: Ojo rojo, visión borrosa...">
+            </div>
+        </div>
+
+        <!-- Antecedentes Personales -->
+        <div class="col-12 mt-1">
+            <div class="d-flex align-items-center mb-1">
+                <div class="bg-primary-subtle p-1 rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">
+                    <i class="bi bi-person-heart text-primary small"></i>
+                </div>
+                <h6 class="fw-bold text-primary mb-0 small" style="letter-spacing: 0.3px;">ANTECEDENTES PERSONALES</h6>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 mt-0">
+            <div class="form-group mb-1">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 9px;">Enfermedades Oculares Previas</label>
+                <textarea class="form-control form-control-sm" formControlName="ph_ocular" rows="1" placeholder="Ej: Glaucoma, Cirugías"></textarea>
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-6 mt-0">
+            <div class="form-group mb-1">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 9px;">Antecedentes Generales</label>
+                <textarea class="form-control form-control-sm" formControlName="ph_general" rows="1" placeholder="Ej: Diabetes, Hipertensión"></textarea>
+            </div>
+        </div>
+
+        <!-- Antecedentes Familiares -->
+        <div class="col-12 mt-2">
+            <div class="d-flex align-items-center mb-1">
+                <div class="bg-info-subtle p-1 rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">
+                    <i class="bi bi-people text-info small"></i>
+                </div>
+                <h6 class="fw-bold text-info mb-0 small" style="letter-spacing: 0.3px;">ANTECEDENTES FAMILIARES</h6>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 mt-0">
+            <div class="form-group mb-1">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 9px;">Oculares (Familia)</label>
+                <textarea class="form-control form-control-sm" formControlName="fh_ocular" rows="1" placeholder="Ej: Ceguera, Cataratas"></textarea>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 mt-0">
+            <div class="form-group mb-1">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 9px;">Generales (Familia)</label>
+                <textarea class="form-control form-control-sm" formControlName="fh_general" rows="1" placeholder="Diabetes familiar, etc."></textarea>
+            </div>
+        </div> 
+
+        <div class="col-12 mt-2">
+            <div class="form-group">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 9px;">
+                    <i class="bi bi-info-circle me-1"></i>Otras Enfermedades / Observaciones
+                </label>
+                <textarea class="form-control form-control-sm" formControlName="previous_illnesses" rows="1" placeholder="Cualquier información adicional relevante..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 d-flex justify-content-center mt-3 mb-2" *ngIf="!hideSaveButton">
+        <button *ngIf="!idMedicalRecordActual" type="submit" class="btn-premium btn-premium-primary">
+            <i class="bi bi-cloud-plus me-2"></i>Enviar Historia Clínica
+        </button>
+        <button *ngIf="idMedicalRecordActual" (click)="onNext()" type="button" class="btn-premium btn-premium-success">
+            SIGUIENTE PASO
+            <i class="bi bi-chevron-right ms-2"></i>
+        </button>
+    </div>
+</form>

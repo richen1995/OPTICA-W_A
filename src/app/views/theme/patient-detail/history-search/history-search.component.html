@@ -1,0 +1,42 @@
+<div class="mt-0 pt-0 pb-0">
+  <!-- Cabecera con botón de filtro para móvil y web -->
+  <div class="d-flex justify-content-between align-items-center mb-0 pb-1">
+    <h3 class="mb-0 text-primary fw-bold" style="font-size: 1.4rem;">Historias Clínicas</h3>
+    <button mat-stroked-button color="primary" class="btn-sm" style="border-radius: 8px; height: 32px;" (click)="toggleFilters()">
+      <mat-icon style="font-size: 18px; width: 18px; height: 18px;">{{ showFilters ? 'filter_list_off' : 'filter_list' }}</mat-icon>
+      <span class="ms-1" style="font-size: 13px;">{{ showFilters ? 'Ocultar' : 'Filtrar' }}</span>
+    </button>
+  </div>
+
+  <!-- Filtros de búsqueda -->
+  <div class="card shadow-sm mb-0" [class.d-none]="!showFilters">
+    <div class="card-body">
+      <form class="row g-3 align-items-end" (ngSubmit)="buscar()"> 
+        <div class="col-md-4">
+          <label class="form-label">Desde</label>
+          <input type="date" class="form-control" name="desde" [(ngModel)]="filtro.fdesde">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Hasta</label>
+          <input type="date" class="form-control" name="hasta" [(ngModel)]="filtro.fhasta">
+        </div>
+        <div class="col-md-4 d-flex justify-content-end align-items-center gap-2 mt-3 mt-md-0">
+          <button mat-raised-button color="primary" type="submit" class="px-5 shadow-sm flex-grow-1 flex-md-grow-0 order-1 order-md-1">
+            <mat-icon>search</mat-icon> <span class="ms-1">Buscar</span>
+          </button>
+
+          <button mat-icon-button color="warn" type="button" 
+                  aria-label="Limpiar filtros"
+                  matTooltip="Limpiar filtros"
+                  (click)="limpiar()"
+                  class="bg-light shadow-sm order-2 order-md-2">
+            <mat-icon>delete_sweep</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabla de resultados -->
+  <!-- <app-history-list [historias]="historias" (verDetalle)="verDetalle($event)"></app-history-list> -->
+</div>

@@ -1,0 +1,213 @@
+:host ::ng-deep {
+    // --- VARIABLES PREMIUM ---
+    $primary: #0d6efd;
+    $primary-light: rgba(13, 110, 253, 0.05);
+    $slate-50: #f8fafc;
+    $slate-100: #f1f5f9;
+    $slate-200: #e2e8f0;
+    $slate-400: #94a3b8;
+    $slate-600: #475569;
+    $slate-800: #1e293b;
+    $shadow-premium: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    $radius-lg: 16px;
+
+    // --- CONTENEDOR PRINCIPAL ---
+    .card {
+        border: none !important;
+        border-radius: $radius-lg !important;
+        box-shadow: $shadow-premium !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+    }
+
+    // --- BÚSQUEDA ---
+    .search-container {
+        background: $slate-50;
+        border-radius: 50px;
+        border: 1px solid $slate-200;
+        padding: 6px 16px;
+        transition: all 0.2s ease;
+
+        &:focus-within {
+            background: white;
+            border-color: $primary;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+        }
+
+        input {
+            font-size: 0.9rem;
+            color: $slate-800;
+            &::placeholder {
+                color: $slate-400;
+                font-weight: 400;
+            }
+        }
+    }
+
+    // --- TABLA MATERIAL ---
+    table {
+        background: transparent !important;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+
+        th.mat-mdc-header-cell {
+            background: $slate-50;
+            color: $slate-600;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 2px 8px !important; // Cabecera spread-sheet
+            border-bottom: 1px solid $slate-200;
+        }
+
+        td.mat-mdc-cell {
+            color: $slate-800;
+            font-size: 0.75rem;
+            padding: 1px 8px !important; // Filas spread-sheet
+            border-bottom: 1px solid $slate-100;
+            transition: color 0.1s ease;
+        }
+
+        tr.mat-mdc-row {
+            height: 26px !important; // Altura de hoja de cálculo
+            min-height: 26px !important;
+            transition: all 0.1s ease;
+            &:hover {
+                background-color: $primary-light !important;
+                
+                td.mat-mdc-cell {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    // --- ICONOS DE ACCIÓN MINIATURA ---
+    .mat-mdc-button.mat-mdc-icon-button {
+      width: 24px !important;
+      height: 24px !important;
+      padding: 0 !important;
+      line-height: 24px !important;
+
+      mat-icon {
+        font-size: 14px !important;
+        width: 14px !important;
+        height: 14px !important;
+        line-height: 14px !important;
+      }
+    }
+
+    // --- COLUMNAS ESPECÍFICAS ---
+    .mat-column-index { 
+        width: 32px;
+        span {
+            display: inline-flex;
+            width: 16px;
+            height: 16px;
+            align-items: center;
+            justify-content: center;
+            background: $slate-100;
+            border-radius: 3px;
+            font-size: 8px;
+            font-weight: 700;
+            color: $slate-600;
+        }
+    }
+
+    .mat-column-paciente {
+        font-weight: 600;
+        color: $slate-800;
+    }
+
+    .mat-column-fecha {
+        font-family: 'Inter', sans-serif;
+        font-variant-numeric: tabular-nums;
+        color: $slate-600;
+    }
+
+    .mat-column-acciones {
+        width: 120px;
+        text-align: right;
+        padding-right: 24px !important;
+    }
+
+    // --- PAGINADOR ---
+    .mat-mdc-paginator {
+        background: transparent !important;
+        border-top: 1px solid $slate-100;
+        font-size: 0.8rem;
+        color: $slate-600;
+    }
+
+    // --- MÓVIL (CARDS) ---
+    mat-card {
+        border: 1px solid $slate-200 !important;
+        border-radius: 14px !important;
+        background: white !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-bottom: 16px;
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        mat-card-title {
+            font-size: 1.1rem !important;
+            letter-spacing: -0.01em;
+        }
+
+        .text-muted {
+            font-size: 0.85rem;
+            color: $slate-600 !important;
+        }
+    }
+
+    // --- MODO OSCURO ---
+    :host-context([data-coreui-theme="dark"]) & {
+        .card {
+            background: rgba(30, 31, 34, 0.98) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .search-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.08);
+            input { color: #e2e8f0; }
+        }
+
+        table {
+            th.mat-mdc-header-cell {
+                background: rgba(255, 255, 255, 0.02);
+                color: #94a3b8;
+                border-bottom-color: rgba(255, 255, 255, 0.05);
+            }
+            td.mat-mdc-cell {
+                color: #cbd5e1;
+                border-bottom-color: rgba(255, 255, 255, 0.03);
+            }
+            tr.mat-mdc-row:hover {
+                background-color: rgba(13, 110, 253, 0.1) !important;
+            }
+        }
+
+        .mat-column-index span {
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+        }
+
+        mat-card {
+            background: rgba(255, 255, 255, 0.02) !important;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+            .text-muted { color: #94a3b8 !important; }
+        }
+    }
+}

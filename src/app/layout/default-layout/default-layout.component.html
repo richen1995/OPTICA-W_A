@@ -2,14 +2,18 @@
 <c-sidebar
   #sidebar1="cSidebar"
   class="d-print-none sidebar sidebar-fixed border-end"
-  colorScheme="dark"
+
   id="sidebar1"
   visible
 >
   <c-sidebar-header class="border-bottom">
     <c-sidebar-brand [routerLink]="[]">
-      <svg [class]="{icon: false}" cIcon class="sidebar-brand-full" height="32" name="logo" title="CoreUI Logo"></svg>
+      <!-- <svg [class]="{icon: false}" cIcon class="sidebar-brand-full" height="32" name="logo" title="CoreUI Logo"></svg> -->
       <!-- <svg cIcon class="sidebar-brand-narrow" height="32" name="signet" title="CoreUI Logo"></svg> -->
+       <img src="assets/images/logo_optica_blanco.png" 
+        alt="Logo" 
+        class="sidebar-brand-full d-block mx-auto img-fluid" 
+        style="max-height: 80px;" />
     </c-sidebar-brand>
   </c-sidebar-header>
 

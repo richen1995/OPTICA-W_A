@@ -15,16 +15,18 @@
       <c-nav-item>
         <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       </c-nav-item>
-      <c-nav-item>
-        <a cNavLink routerLink="/users" routerLinkActive="active">Users</a>
-      </c-nav-item>
-      <c-nav-item>
+      @if (id_role === 1) {
+        <c-nav-item>
+          <a cNavLink routerLink="/users" routerLinkActive="active">Users</a>
+        </c-nav-item>
+      }
+<!--       <c-nav-item>
         <a cNavLink routerLink="/settings" routerLinkActive="active">Settings</a>
-      </c-nav-item>
+      </c-nav-item> -->
     </c-header-nav>
 
     <c-header-nav class="d-none d-md-flex ms-auto ">
-      <a cNavLink>
+<!--       <a cNavLink>
         <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
       </a>
       <a cNavLink>
@@ -32,8 +34,8 @@
       </a>
       <a cNavLink>
         <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
-      </a>
-    </c-header-nav>
+      </a> -->
+    </c-header-nav> 
 
     <c-header-nav class="ms-auto ms-md-0">
       <div class="nav-item py-1">
@@ -62,11 +64,12 @@
       <c-avatar
         shape="rounded-1"
         [size]="'md'"
-        src="./assets/images/avatars/8.jpg"
         status="success"
-        textColor="primary"
-        alt="User avatar"
-      />
+        class="fw-bold bg-info text-white"
+        alt="User initial"
+      >
+        {{ userInitial }}
+      </c-avatar>
     </button>
     <ul cDropdownMenu class="pt-0 w-auto">
       <li>
@@ -74,7 +77,7 @@
           Account
         </h6>
       </li>
-      <li>
+      <!--<li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilBell"></svg>
           Updates
@@ -139,20 +142,23 @@
             42
           </c-badge>
         </a>
+      </li>-->
+      <li class="px-2 py-1 text-center small text-body-secondary fw-bold">
+        {{ userName }}
       </li>
       <li>
         <hr cDropdownDivider />
       </li>
-      <li>
+      <!--<li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilLockLocked"></svg>
           Lock Account
         </a>
-      </li>
+      </li>-->
       <li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilAccountLogout"></svg>
-          Logout
+          Cerrar Sesión
         </a>
       </li>
     </ul>

@@ -1,0 +1,104 @@
+<form [formGroup]="formularioLensometry" (ngSubmit)="enviarFormulario()">
+
+    <div class="card-body p-3">               
+        <div class="table-responsive mb-4">
+            <table class="table table-hover align-middle text-center shadow-sm" style="border: 1px solid #cff4fc;">
+                <thead class="table-info text-dark">
+                <tr>
+                    <th style="width: 25%;">OJO / POSICIÓN</th>
+                    <th>AV. VL / CC</th>
+                    <th>AV. VP</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr formGroupName="od">
+                    <td class="fw-bold bg-light text-primary">Ojo Derecho (OD)</td>
+                    <td data-label="AV. VL/CC">
+                        <input type="text" class="form-control form-control-sm text-center"
+                                formControlName="lensometry_av_vl_od" placeholder="VL">
+                    </td>
+                    <td data-label="AV. VP">
+                        <input type="text" class="form-control form-control-sm text-center"
+                                formControlName="lensometry_av_vp_od" placeholder="VP">
+                    </td>
+                </tr>
+
+                <tr formGroupName="oi">
+                    <td class="fw-bold bg-light text-primary">Ojo Izquierdo (OI)</td>
+                    <td data-label="AV. VL/CC">
+                        <input type="text" class="form-control form-control-sm text-center"
+                                formControlName="lensometry_av_vl_oi" placeholder="VL">
+                    </td>
+                    <td data-label="AV. VP">
+                        <input type="text" class="form-control form-control-sm text-center"
+                                formControlName="lensometry_av_vp_oi" placeholder="VP">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row g-3">       
+            <div class="col-md-4">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-layers me-2 text-info"></i>Tipo de lente
+                </label>
+                <select class="form-select form-select-sm" formControlName="lens_type">
+                  <option value="">Seleccionar</option>
+                  <option value="Monofocal">Monofocal</option>
+                  <option value="Bifocal">Bifocal</option>
+                  <option value="Progresivo">Progresivo</option>
+                </select>
+            </div>
+        
+            <div class="col-md-4">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-box-seam me-2 text-info"></i>Material
+                </label>
+                <select class="form-select form-select-sm" formControlName="lens_material">
+                  <option value="">Seleccionar</option>
+                  <option value="Policarbonato">Policarbonato</option>
+                  <option value="Plastico">Plastico</option>
+                  <option value="Cristal">Cristal</option>
+                  <option value="CR-39">CR-39</option>
+                  <option value="Hi-Index">Hi-Index</option>
+                  <option value="Trivex">Trivex</option>
+                </select>
+            </div>
+        
+            <div class="col-md-4">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-palette me-2 text-info"></i>Filtro
+                </label>
+                <select class="form-select form-select-sm" formControlName="filter">
+                  <option value="">Seleccionar</option>
+                  <option value="Antirreflejo">Antirreflejo</option>
+                  <option value="Fotocromático">Fotocromático</option>
+                  <option value="Filtro azul">Filtro azul</option>
+                  <option value="Polarizado">Polarizado</option>
+                  <option value="Antirreflejo AR Verde">Antirreflejo AR Verde</option>
+                  <option value="Antirreflejo AR Azul">Antirreflejo AR Azul</option>
+                </select>
+            </div>
+        
+            <div class="col-md-6 mt-3">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-hourglass-split me-2 text-info"></i>Tiempo de uso.
+                </label>
+                <input type="text" class="form-control form-control-sm" formControlName="time_using_rx" placeholder="Ej: 2 años">
+            </div>
+        
+            <div class="col-md-6 mt-3">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-chat-dots me-2 text-info"></i>Observaciones de Lensometría
+                </label>
+                <textarea class="form-control" rows="2" formControlName="observation" placeholder="Notas adicionales sobre los lentes actuales..."></textarea>
+            </div>
+        </div>       
+    </div>  
+    <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-3" *ngIf="!hideSaveButton">
+        <button type="submit" class="btn-premium btn-premium-primary">
+            <i class="bi bi-save2-fill me-2"></i>Guardar Lensometría
+        </button>
+    </div>
+</form>

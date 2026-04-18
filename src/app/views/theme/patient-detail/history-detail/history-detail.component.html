@@ -1,0 +1,322 @@
+<div class="container-fluid history-detail">
+
+  <!-- Header -->
+  <div class="row align-items-center mb-4 g-3">
+    <div class="col-12 col-md-auto">
+      <h4 class="fw-bold mb-0 text-nowrap">Historia Clínica de Optometría</h4>
+    </div>
+    
+    <div class="col-12 col-md text-md-end">
+      <div class="d-flex gap-2 justify-content-end">
+        <button mat-flat-button color="primary" class="btn-compact" (click)="printRxFinal()" 
+                [disabled]="!objMedicalRecordsExtended?.rx?.[0]?.id_medical_record">
+          <mat-icon>print</mat-icon>
+          Imprimir RX
+        </button>
+        <button mat-flat-button color="accent" class="btn-compact" (click)="editHistory()">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <mat-accordion multi>
+
+    <!-- DATOS PERSONALES -->
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Datos del Paciente</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card class="patient-card">
+        <div class="row">
+          <div class="col-md-4"><strong>Identificación:</strong> {{ objMedicalRecordsExtended?.person?.identification }}</div>
+          <div class="col-md-4"><strong>Nombre:</strong> {{ objMedicalRecordsExtended?.person?.first_name }} {{ objMedicalRecordsExtended?.person?.last_name }}</div>
+          <div class="col-md-4"><strong>Teléfono:</strong> {{ objMedicalRecordsExtended?.person?.phone }}</div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-4"><strong>Edad:</strong> {{ calcularEdad(objMedicalRecordsExtended?.person?.f_birthdate) }} años</div>
+          <div class="col-md-4"><strong>Sexo:</strong> {{objMedicalRecordsExtended?.person?.gender}}</div>
+          <div class="col-md-4"><strong>Fecha:</strong> {{ objMedicalRecordsExtended?.f_creation | date: 'dd/MM/yyyy' }}</div>
+        </div>
+      </mat-card>
+    </mat-expansion-panel>
+
+    <!-- EXAMEN VISUAL -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Examen Visual / Historia Clínica</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card class="p-3">
+        <!-- Información General -->
+        <div class="row border-bottom pb-2 mb-3">
+          <div class="col-md-3">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">¿Usa lentes?</small>
+            <p class="mb-0 fw-semibold" [ngClass]="objMedicalRecordsExtended?.uses_glasses ? 'text-success' : 'text-danger'">
+              <i class="bi me-1" [ngClass]="objMedicalRecordsExtended?.uses_glasses ? 'bi-check-circle-fill' : 'bi-x-circle-fill'"></i>
+              {{ objMedicalRecordsExtended?.uses_glasses ? 'SÍ' : 'NO' }}
+            </p>
+          </div>
+          <div class="col-md-3">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Último Chequeo</small>
+            <p class="mb-0 text-dark fw-medium">
+              <i class="bi bi-clock-history me-1 text-primary"></i>
+              {{ objMedicalRecordsExtended?.last_checkup || 'No registra' }}
+            </p>
+          </div>
+          <div class="col-md-6 border-start ps-4">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Motivo de Consulta</small>
+            <p class="mb-0 text-dark" style="font-size: 14px;">{{ objMedicalRecordsExtended?.reasons_for_visit || 'N/A' }}</p>
+          </div>
+        </div>
+
+        <!-- Antecedentes -->
+        <div class="row">
+          <!-- PERSONALES -->
+          <div class="col-md-6 border-end">
+            <div class="d-flex align-items-center mb-2">
+              <div class="bg-primary-subtle p-2 rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                <i class="bi bi-person-heart text-primary"></i>
+              </div>
+              <h6 class="fw-bold text-primary mb-0" style="font-size: 12px; letter-spacing: 0.5px;">ANTECEDENTES PERSONALES</h6>
+            </div>
+            
+            <div class="ms-1 ps-4 border-start">
+              <div class="mb-2">
+                <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">OCULARES</small>
+                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.ph_ocular?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.ph_ocular || 'No refiere' }}</span>
+              </div>
+              <div>
+                <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">GENERALES</small>
+                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.ph_general?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.ph_general || 'No refiere' }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FAMILIARES -->
+          <div class="col-md-6 ps-md-4">
+            <div class="d-flex align-items-center mb-2">
+              <div class="bg-info-subtle p-2 rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                <i class="bi bi-people text-info"></i>
+              </div>
+              <h6 class="fw-bold text-info mb-0" style="font-size: 12px; letter-spacing: 0.5px;">ANTECEDENTES FAMILIARES</h6>
+            </div>
+
+            <div class="ms-1 ps-4 border-start">
+              <div class="mb-2">
+                <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">OCULARES</small>
+                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.fh_ocular?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.fh_ocular || 'No refiere' }}</span>
+              </div>
+              <div>
+                <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">GENERALES</small>
+                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.fh_general?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.fh_general || 'No refiere' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Observaciones Adicionales -->
+        <div class="row mt-3 pt-2">
+          <div class="col-12 bg-light p-2 rounded-3 border-start border-3 border-warning">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Otras Enfermedades / Observaciones</small>
+            <p class="mb-0 italic" style="font-size: 13px; color: #475569;">
+              <i class="bi bi-info-circle me-1 text-warning"></i>
+              {{ objMedicalRecordsExtended?.previous_illnesses || 'Ninguna observación adicional' }}
+            </p>
+          </div>
+        </div>
+      </mat-card>
+    </mat-expansion-panel>
+
+    <!-- LENSOMETRÍA ACTUAL-->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Lensometría</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card *ngIf="objMedicalRecordsExtended?.lensometries?.length; else noLensData" class="p-3 border-start border-3 border-info">
+        <div class="table-responsive">
+          <table class="table table-sm table-hover text-center align-middle mb-3 table-stack-mobile">
+            <thead class="table-info text-dark">
+              <tr>
+                <th style="width: 80px;">OJO</th>
+                <th>AV. VL/CC</th>
+                <th>AV. VP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold bg-light" data-label="Ojo">OD</td>
+                <td class="fw-medium" data-label="AV. VL/CC">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vl_od || '---' }}</td>
+                <td class="fw-medium" data-label="AV. VP">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_od || '---' }}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold bg-light" data-label="Ojo">OI</td>
+                <td class="fw-medium" data-label="AV. VL/CC">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vl_oi || '---' }}</td>
+                <td class="fw-medium" data-label="AV. VP">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_oi || '---' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-3">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Tipo de Lente</small>
+            <p class="mb-0 text-dark fw-medium"><i class="bi bi-layers me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.lens_type || 'N/A' }}</p>
+          </div>
+          <div class="col-md-3">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Material</small>
+            <p class="mb-0 text-dark fw-medium"><i class="bi bi-box-seam me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.lens_material || 'N/A' }}</p>
+          </div>
+          <div class="col-md-3">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Filtro</small>
+            <p class="mb-0 text-dark fw-medium"><i class="bi bi-palette me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.filter || 'N/A' }}</p>
+          </div>
+          <div class="col-md-3">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Tiempo en uso RX</small>
+            <p class="mb-0 text-dark fw-medium"><i class="bi bi-hourglass-split me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.time_using_rx || 'N/A' }}</p>
+          </div>
+        </div>
+      </mat-card>
+      <ng-template #noLensData>
+        <div class="no-data-msg-container">
+          <mat-icon>info_outline</mat-icon>
+          <p>No se ha registrado información de lensometría para este examen.</p>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <!-- AGUDEZA VISUAL -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Agudeza Visual</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card *ngIf="objMedicalRecordsExtended?.visualAcuities?.length; else noVAData" class="p-3 border-start border-3 border-warning shadow-sm">
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered text-center align-middle mb-3 table-stack-mobile border">
+            <thead class="table-warning text-dark" style="font-size: 0.75rem;">
+              <tr>
+                <th rowspan="2" class="align-middle" style="width: 80px;">OJO</th>
+                <th colspan="2">VL (6 m)</th>
+                <th rowspan="2" class="align-middle" style="width: 100px;">PH</th>
+                <th colspan="2">VP (40 cm)</th>
+              </tr>
+              <tr>
+                <th style="width: 80px;">SC</th>
+                <th style="width: 80px;">CC</th>
+                <th style="width: 80px;">SC</th>
+                <th style="width: 80px;">CC</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 0.85rem;">
+              <!-- Ojo Derecho -->
+              <tr>
+                <td class="fw-bold bg-light" data-label="Ojo">OD</td>
+                <td class="fw-medium" data-label="VL SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_sc_od || '---'}}</td>
+                <td class="fw-medium text-primary" data-label="VL CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_cc_od || '---'}}</td>
+                <td class="fw-bold text-warning-emphasis bg-light-subtle" data-label="PH">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.ph_od || '---'}}</td>
+                <td class="fw-medium" data-label="VP SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_sc_od || '---'}}</td>
+                <td class="fw-medium text-primary" data-label="VP CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_cc_od || '---'}}</td>
+              </tr>
+              <!-- Ojo Izquierdo -->
+              <tr>
+                <td class="fw-bold bg-light" data-label="Ojo">OI</td>
+                <td class="fw-medium" data-label="VL SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_sc_oi || '---'}}</td>
+                <td class="fw-medium text-primary" data-label="VL CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_cc_oi || '---'}}</td>
+                <td class="fw-bold text-warning-emphasis bg-light-subtle" data-label="PH">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.ph_oi || '---'}}</td>
+                <td class="fw-medium" data-label="VP SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_sc_oi || '---'}}</td>
+                <td class="fw-medium text-primary" data-label="VP CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_cc_oi || '---'}}</td>
+              </tr>
+              <!-- Ambos Ojos -->
+              <tr class="table-light">
+                <td class="fw-bold bg-secondary-subtle" data-label="Ojo">AO</td>
+                <td class="fw-bold text-dark" data-label="VL SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_sc_ao || '---'}}</td>
+                <td class="fw-bold text-primary" data-label="VL CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_cc_ao || '---'}}</td>
+                <td class="fw-bold text-warning-emphasis bg-secondary-subtle" data-label="PH">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.ph_ao || '---'}}</td>
+                <td class="fw-bold text-dark" data-label="VP SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_sc_ao || '---'}}</td>
+                <td class="fw-bold text-primary" data-label="VP CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_cc_ao || '---'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Dominancia Ocular</small>
+            <p class="mb-0 text-dark fw-medium"><i class="bi bi-eye-fill me-2 text-warning"></i>{{ objMedicalRecordsExtended?.visualAcuities?.[0]?.dominance || 'No especificada' }}</p>
+          </div>
+        </div>
+      </mat-card>
+      <ng-template #noVAData>
+        <div class="no-data-msg-container">
+          <mat-icon>info_outline</mat-icon>
+          <p>No se ha registrado información de agudeza visual para este examen.</p>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <!-- RX FINAL -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>RX Final</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card id="rx-final-print" *ngIf="objMedicalRecordsExtended?.rx?.length; else noRxData" class="p-3 border-start border-3 border-success shadow-sm">
+        <div class="table-responsive">
+          <table class="table table-sm table-hover text-center align-middle mb-3 table-stack-mobile">
+            <thead class="table-success text-dark">
+              <tr>
+                <th style="width: 80px;"></th>
+                <th>RX</th>
+                <th>AV. VL.</th>
+                <th>ADD.</th>
+                <th>AV. VP.</th>
+                <th>DNP.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold bg-light" data-label="Ojo">OD</td>
+                <td class="fw-bold text-success" style="font-size: 15px;" data-label="Prescripción">{{objMedicalRecordsExtended?.rx?.[0]?.rx_desc_od || '---'}}</td>
+                <td class="fw-medium" data-label="AV. VL.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_av_vl_od || '---'}}</td>
+                <td class="fw-medium" data-label="ADD.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_add_od || '---'}}</td>
+                <td class="fw-medium" data-label="AV. VP.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_av_vp_od || '---'}}</td>
+                <td class="fw-medium" data-label="DNP.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_dnp_od || '---'}}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold bg-light" data-label="Ojo">OI</td>
+                <td class="fw-bold text-success" style="font-size: 15px;" data-label="Prescripción">{{objMedicalRecordsExtended?.rx?.[0]?.rx_desc_oi || '---'}}</td>
+                <td class="fw-medium" data-label="AV. VL.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_av_vl_oi || '---'}}</td>
+                <td class="fw-medium" data-label="ADD.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_add_oi || '---'}}</td>
+                <td class="fw-medium" data-label="AV. VP.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_av_vp_oi || '---'}}</td>
+                <td class="fw-medium" data-label="DNP.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_dnp_oi || '---'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="row g-3">
+          <div class="col-md-6 border-end">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Observaciones Clínicas</small>
+            <p class="mb-0 text-dark" style="font-size: 13px;"><i class="bi bi-chat-left-dots me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.observations || 'Sin observaciones' }}</p>
+          </div>
+          <div class="col-md-6 ps-md-4">
+            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Tratamiento Recomendado</small>
+            <p class="mb-0 fw-semibold text-dark" style="font-size: 13px;"><i class="bi bi-clipboard2-check me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.treatment || 'No especificado' }}</p>
+          </div>
+        </div>
+      </mat-card>
+      <ng-template #noRxData>
+        <div class="no-data-msg-container">
+          <mat-icon>info_outline</mat-icon>
+          <p>No se ha registrado receta final (RX) para este examen.</p>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+</div>

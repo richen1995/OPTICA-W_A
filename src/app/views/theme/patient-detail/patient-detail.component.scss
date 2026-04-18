@@ -1,0 +1,12 @@
+/* Fuerza a que el área de las pestañas esté siempre por encima del contenido */
+.nav-tabs,
+.mat-tab-header {
+    position: relative;
+    z-index: 10 !important;
+}
+
+/* Si usas los tabs de CoreUI, asegúrate de que el enlace sea clicable en toda su área */
+.nav-link {
+    position: relative;
+    z-index: 11 !important;
+}

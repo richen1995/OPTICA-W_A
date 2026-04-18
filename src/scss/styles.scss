@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+//LINEA PARA USAR ANGULAR MATERIAL
+@use '@angular/material/prebuilt-themes/indigo-pink.css';
+
 // Import styles with default layout.
-@use "@coreui/coreui/scss/coreui" as * with (
-  $enable-deprecation-messages: false
-);
+@use "@coreui/coreui/scss/coreui" as * with ($enable-deprecation-messages: false);
 
 // Import Chart.js custom tooltips styles
 @use "@coreui/chartjs/scss/coreui-chartjs";
@@ -21,3 +22,235 @@
 // We use those styles to show code examples, you should remove them in your application.
 @use "examples";
 
+@use 'ngx-toastr/toastr';
+@use 'sweetalert2/src/sweetalert2.scss' as swal;
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+.toast-top-right,
+.toast-top-left,
+.toast-top-center,
+.toast-bottom-right,
+.toast-bottom-left,
+.toast-bottom-center {
+  position: fixed !important;
+  z-index: 99999 !important;
+  pointer-events: none; // Opcional, para que no bloquee clics
+}
+
+c-sidebar-brand,
+.c-sidebar-brand {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
+  text-align: center;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+}
+
+// --- PREMIUM SWEETALERT2 STYLES ---
+.swal2-popup.premium-swal {
+  font-family: 'Outfit', sans-serif !important;
+  border-radius: 20px !important;
+  padding: 1.5rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+
+  // Responsive for Mobile
+  @media (max-width: 576px) {
+    width: 92% !important;
+    padding: 1rem !important;
+    margin: 0 10px !important;
+  }
+}
+
+.swal2-backdrop-premium {
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+.swal2-title.premium-swal-title {
+  color: #1a1a1a !important;
+  font-weight: 700 !important;
+  font-size: 1.4rem !important;
+  padding-top: 0.5rem !important;
+}
+
+.swal2-html-container.premium-swal-content {
+  color: #555 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  margin-top: 0.5rem !important;
+}
+
+.swal2-confirm.premium-confirm {
+  border-radius: 12px !important;
+  padding: 12px 25px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(46, 184, 92, 0.3) !important;
+  margin: 10px 5px !important; // Añade separación vertical y horizontal
+}
+
+.swal2-cancel.premium-cancel {
+  border-radius: 12px !important;
+  padding: 12px 25px !important;
+  font-weight: 600 !important;
+  margin: 10px 5px !important; // Añade separación vertical y horizontal
+}
+
+// --- CUSTOM SIDEBAR NAVY BLUE (UNIFICADO BALANCEADO - ULTRA PREMIUM) ---
+.sidebar {
+  --cui-sidebar-bg: #2c4c7c !important; // Azul Marino Liviano / Elegante
+  --cui-sidebar-color: rgba(255, 255, 255, 0.95) !important;
+  --cui-sidebar-nav-link-color: rgba(255, 255, 255, 0.95) !important;
+  --cui-sidebar-nav-link-hover-bg: rgba(255, 255, 255, 0.1) !important;
+  --cui-sidebar-nav-link-hover-color: #ffffff !important;
+  --cui-sidebar-nav-link-active-bg: rgba(255, 255, 255, 0.2) !important;
+  --cui-sidebar-nav-link-active-color: #ffffff !important;
+  --cui-sidebar-border-color: transparent !important;
+
+  // Fondo Unificado Liviano
+  background-color: #2c4c7c !important;
+
+  // -- REFINAMIENTO PREMIUM --
+  border-right: 1px solid rgba(0, 0, 0, 0.1) !important; // Borde de corte limpio
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08) !important; // Sombra de profundidad pro
+  transition: all 0.3s ease;
+
+  ng-scrollbar,
+  .sidebar-nav,
+  .sidebar-header,
+  .sidebar-footer,
+  c-sidebar-header,
+  c-sidebar-footer,
+  .sidebar-brand,
+  c-sidebar-brand {
+    background-color: #2c4c7c !important;
+    border: none !important;
+  }
+
+  // INTERACCIÓN REFINADA
+  .nav-link,
+  .nav-group-toggle {
+    color: #ffffff !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative; // Para el indicador vertical
+    font-weight: 500 !important;
+
+    &:hover,
+    &.active {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      color: #2c4c7c !important; // Inversión al color liviano
+
+      .nav-icon {
+        color: #2c4c7c !important;
+        opacity: 1;
+      }
+    }
+
+    // INDICADOR VERTICAL PARA ITEM ACTIVO
+    &.active {
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background-color: #0d6efd;
+        border-radius: 0 4px 4px 0;
+        box-shadow: 2px 0 5px rgba(13, 110, 253, 0.3);
+      }
+    }
+  }
+
+  // Estilo de iconos
+  .nav-icon {
+    color: #ffffff !important;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+  }
+
+  // Sub-menús con el mismo tono balanceado
+  .nav-group-items {
+    background-color: #2c4c7c !important;
+  }
+
+  // CATEGORÍAS (Ej: "OPTICA")
+  .nav-title {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.9 !important;
+    padding-top: 1.8rem !important;
+    padding-bottom: 0.6rem !important;
+    font-size: 0.65rem !important;
+  }
+}
+
+// --- RESPONSIVE STACKABLE TABLES ---
+.table-stack-mobile {
+  @media (max-width: 768px) {
+    thead {
+      display: none;
+    }
+    tr {
+      display: block;
+      margin-bottom: 1rem;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 0.5rem;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+      &.table-active {
+        background-color: #f8f9fa !important;
+        border-left: 2px solid #adb5bd;
+      }
+    }
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: right !important;
+      padding: 0.5rem 0.75rem !important;
+      border-top: 1px solid #f0f0f0 !important;
+      border-bottom: none !important;
+      border-left: none !important;
+      border-right: none !important;
+
+      &:first-child {
+        border-top: none !important;
+        background-color: #f8f9fa !important;
+        font-weight: bold;
+        color: #333;
+        border-radius: 8px 8px 0 0;
+      }
+
+      &::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        color: #6c757d;
+        text-align: left;
+        margin-right: 15px;
+      }
+      
+      &[data-label=""]:before {
+        display: none;
+      }
+    }
+  }
+}

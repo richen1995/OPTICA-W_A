@@ -1,0 +1,12 @@
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="!isLoading">
+  <app-history-list [listMedicalRecordsExtended]="objMedicalRecordsExtended"></app-history-list>
+</div>
+
+<!-- history-search.component.html -->
+
+<!-- <p>patient-detail works! HOLA</p> -->
+<!-- <app-patient-info></app-patient-info> -->

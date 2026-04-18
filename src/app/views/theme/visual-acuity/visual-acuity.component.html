@@ -1,0 +1,119 @@
+<form [formGroup]="formularioVisualAcuity" (ngSubmit)="enviarFormulario()">
+    <div class="card-body p-3">         
+        <div class="table-responsive mb-4">
+            <table class="table table-hover align-middle text-center shadow-sm" style="border: 1px solid #fff3cd; border-collapse: separate; border-spacing: 0; border-radius: 8px; overflow: hidden;">
+                <thead class="table-warning text-dark border-bottom" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <!-- Fila 1 Cabecera -->
+                    <tr>
+                        <th rowspan="2" class="align-middle border-bottom-0" style="min-width: 140px;">OJO / POSICIÓN</th>
+                        <th colspan="2" class="border-start border-white">VL (6 m)</th>
+                        <th rowspan="2" class="align-middle border-start border-white border-bottom-0">PH</th>
+                        <th colspan="2" class="border-start border-white">VP (40 cm)</th>
+                    </tr>
+                    <!-- Fila 2 Cabecera -->
+                    <tr>
+                        <th class="py-1 border-start border-white" style="width: 17%;">SC</th>
+                        <th class="py-1 border-start border-white" style="width: 17%;">CC</th>
+                        <th class="py-1 border-start border-white" style="width: 17%;">SC</th>
+                        <th class="py-1 border-start border-white" style="width: 17%;">CC</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 0.85rem;">
+                    <!-- Ojo Derecho -->
+                    <tr formGroupName="od_av">
+                        <td class="fw-bold bg-light text-warning-emphasis border-end ojo-label">Ojo Derecho (OD)</td>
+                        <td data-label="VL / SC">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vl_sc_od" placeholder="VL">
+                        </td>
+                        <td data-label="VL / CC" class="border-start">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vl_cc_od" placeholder="VL-CC">
+                        </td>
+                        <td data-label="PH" class="bg-light-subtle border-start border-end ph-cell">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold text-warning-emphasis"
+                                   formControlName="ph_od" placeholder="PH">
+                        </td>
+                        <td data-label="VP / SC">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vp_sc_od" placeholder="VP">
+                        </td>
+                        <td data-label="VP / CC" class="border-start">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vp_cc_od" placeholder="VP-CC">
+                        </td>
+                    </tr>
+
+                    <!-- Ojo Izquierdo -->
+                    <tr formGroupName="oi_av">
+                        <td class="fw-bold bg-light text-warning-emphasis border-end ojo-label">Ojo Izquierdo (OI)</td>
+                        <td data-label="VL / SC">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vl_sc_oi" placeholder="VL">
+                        </td>
+                        <td data-label="VL / CC" class="border-start">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vl_cc_oi" placeholder="VL-CC">
+                        </td>
+                        <td data-label="PH" class="bg-light-subtle border-start border-end ph-cell">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold text-warning-emphasis"
+                                   formControlName="ph_oi" placeholder="PH">
+                        </td>
+                        <td data-label="VP / SC">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vp_sc_oi" placeholder="VP">
+                        </td>
+                        <td data-label="VP / CC" class="border-start">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
+                                   formControlName="visual_acuity_vp_cc_oi" placeholder="VP-CC">
+                        </td>
+                    </tr>
+
+                    <!-- Ambos Ojos -->
+                    <tr formGroupName="ao_av">
+                        <td class="fw-bold bg-light border-end ojo-label">Ambos Ojos (AO)</td>
+                        <td data-label="AO VL / SC">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
+                                   formControlName="visual_acuity_vl_sc_ao" placeholder="AO - VL">
+                        </td>
+                        <td data-label="AO VL / CC" class="border-start">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
+                                   formControlName="visual_acuity_vl_cc_ao" placeholder="AO - CC">
+                        </td>
+                        <td data-label="AO PH" class="bg-light-subtle border-start border-end ph-cell">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
+                                   formControlName="ph_ao" placeholder="AO - PH">
+                        </td>
+                        <td data-label="AO VP / SC">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
+                                   formControlName="visual_acuity_vp_sc_ao" placeholder="AO - VP">
+                        </td>
+                        <td data-label="AO VP / CC" class="border-start">
+                            <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
+                                   formControlName="visual_acuity_vp_cc_ao" placeholder="AO - CC">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                    <i class="bi bi-eye-fill me-2 text-warning"></i>Dominancia Ocular
+                </label>
+                <select class="form-select form-select-sm shadow-sm border-warning-subtle" formControlName="dominance">
+                    <option value="">Seleccionar</option>
+                    <option value="OD">Ojo Derecho (OD)</option>
+                    <option value="OI">Ojo Izquierdo (OI)</option>
+                </select>
+            </div>
+        </div>
+    </div>  
+
+    <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-3" *ngIf="!hideSaveButton">
+        <button type="submit" class="btn-premium btn-premium-primary">
+            <i class="bi bi-eye-fill me-2"></i>Guardar Agudeza Visual
+        </button>
+    </div>
+</form>

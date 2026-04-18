@@ -14,7 +14,7 @@ export const navItems: INavData[] = [
     title: true,
     name: 'Optica'
   },
-  {
+  /*{
     name: 'Colors',
     url: '/theme/colors',
     iconComponent: { name: 'cil-drop' }
@@ -24,16 +24,22 @@ export const navItems: INavData[] = [
     url: '/theme/typography',
     linkProps: { fragment: 'headings' },
     iconComponent: { name: 'cil-pencil' }
-  },
+  },*/
   { 
     name: 'Pacientes',
     url: '/theme/patients',
-    iconComponent: { name: 'cil-pencil' }
+    iconComponent: { name: 'cil-people' }
   },
+  { 
+    name: 'Historial Médico',
+    url: '/theme/patient-detail',
+    iconComponent: { name: 'cil-notes' }
+  }
+  /* ,
   {
     name: 'Components',
     title: true
-  },
+  }
   {
     name: 'Base',
     url: '/base',
@@ -293,5 +299,5 @@ export const navItems: INavData[] = [
     url: 'https://coreui.io/angular/docs/',
     iconComponent: { name: 'cil-description' },
     attributes: { target: '_blank' }
-  }
+  } */
 ];

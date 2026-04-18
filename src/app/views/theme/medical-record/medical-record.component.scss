@@ -1,0 +1,109 @@
+/* Estilos Responsivos para Historia Clínica (Medical Record) */
+.medical-record-form {
+    padding: 15px;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+textarea.form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 8px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    min-height: 60px;
+
+    &::placeholder {
+        color: #adb5bd;
+        opacity: 0.6;
+        font-weight: 300;
+        font-style: italic;
+    }
+}
+
+textarea.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.section-title {
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0d6efd;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+hr {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    border-top: 2px solid #e9ecef;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .row>div {
+        margin-bottom: 1rem;
+    }
+
+    label {
+        font-size: 0.95rem;
+    }
+
+    .form-check-inline {
+        margin-right: 2rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+    }
+}
+
+// --- SOPORTE PARA MODO OSCURO (DARK THEME) ---
+:host-context([data-coreui-theme="dark"]) {
+    label {
+        color: var(--cui-secondary-color) !important;
+    }
+
+    .form-control, textarea.form-control, .form-select {
+        background-color: var(--cui-body-bg) !important;
+        border-color: var(--cui-border-color) !important;
+        color: var(--cui-body-color) !important;
+
+        &::placeholder {
+            color: #6c757d !important;
+            opacity: 0.5;
+        }
+
+        &:focus {
+            background-color: #2b3038 !important;
+            border-color: #0d6efd !important;
+        }
+    }
+
+    .section-title {
+        color: #4da3ff !important;
+    }
+
+    hr {
+        border-top-color: var(--cui-border-color) !important;
+    }
+
+    .form-check-label {
+        color: var(--cui-body-color) !important;
+    }
+}
