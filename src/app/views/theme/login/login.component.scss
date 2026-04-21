@@ -7,7 +7,7 @@
 
 /* Branding */
 .branding {
-  background: linear-gradient(135deg, #0d6efd, #4fc3f7);
+  background: #2c4c7c;
   color: white;
   align-items: center;
   justify-content: center;
@@ -17,8 +17,8 @@
     padding: 40px;
 
     .logo {
-      width: 120px;
-      margin-bottom: 20px;
+      width: 320px;
+      margin-bottom: 25px;
     }
 
     h1 {
@@ -27,8 +27,17 @@
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1.4rem;
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 4px;
       opacity: 0.9;
+      text-transform: uppercase;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      display: inline-block;
     }
   }
 }
@@ -52,6 +61,15 @@
   height: 45px;
   font-size: 1rem;
   border-radius: 8px;
+  background-color: #2c4c7c !important;
+  color: white !important;
+
+  &:disabled {
+    background-color: #cbd5e0 !important;
+    color: #718096 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
 }
 
 .forgot-password-container {
@@ -61,7 +79,7 @@
 
 .forgot-password {
   font-size: 0.85rem;
-  color: #0d6efd;
+  color: #2c4c7c;
   text-decoration: none;
 
   &:hover {
@@ -72,7 +90,7 @@
 /* --- MOBILE REDESIGN (Glassmorphism & Dynamic) --- */
 @media (max-width: 767.98px) {
   .login-container {
-    background: radial-gradient(circle at top right, #2c4c7c, #1a1a1a);
+    background: #2c4c7c;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -147,23 +165,24 @@
       font-size: 1.85rem;
       font-weight: 700;
       margin-bottom: 2.5rem;
-      text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       letter-spacing: -0.5px;
     }
   }
 
   .mobile-logo-header {
     margin-bottom: 2rem;
+
     .mobile-logo {
-      width: 150px; // Further enlarged from 120px
-      filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.4));
+      width: 200px;
+      filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
     }
   }
 
   /* Improved Native-Simulated Inputs */
   .native-input {
     margin-bottom: 1.5rem;
-    
+
     ::ng-deep {
       .mat-mdc-form-field-flex {
         background-color: rgba(255, 255, 255, 0.09) !important;
@@ -173,7 +192,7 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid rgba(255, 255, 255, 0.05);
       }
-      
+
       .mat-mdc-form-field-outline {
         display: none !important;
       }
@@ -198,7 +217,7 @@
         width: 100% !important;
         border: none !important;
         box-shadow: none !important;
-        
+
         &::placeholder {
           color: rgba(255, 255, 255, 0.3) !important;
         }
@@ -207,8 +226,8 @@
       .mat-mdc-floating-label {
         color: rgba(255, 255, 255, 0.65) !important;
         font-size: 1rem;
-        top: 28px !important; 
-        
+        top: 28px !important;
+
         &.mdc-floating-label--float-above {
           transform: translateY(-22px) scale(0.75) !important;
           color: #4fc3f7 !important;
@@ -219,7 +238,7 @@
       .mat-mdc-form-field-icon-prefix {
         padding: 0 !important;
         margin-right: 0 !important; // Margin removed
-        min-width: 20px !important; 
+        min-width: 20px !important;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -251,19 +270,22 @@
     color: rgba(255, 255, 255, 0.8);
     font-size: 0.9rem;
     font-weight: 500;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    &:hover { color: white; }
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      color: white;
+    }
   }
 
   .premium-btn {
     height: 62px !important;
-    background: linear-gradient(135deg, #0d6efd 0%, #2c4c7c 100%) !important;
+    background: #2c4c7c !important;
     border-radius: 20px !important;
     font-size: 1.15rem !important;
     font-weight: 800 !important;
     color: white !important;
     box-shadow: 0 12px 25px rgba(13, 110, 253, 0.45) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
@@ -272,7 +294,7 @@
       transform: scale(0.96);
       box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3) !important;
     }
-    
+
     &:disabled {
       background: rgba(255, 255, 255, 0.15) !important;
       color: rgba(255, 255, 255, 0.4) !important;
@@ -283,8 +305,12 @@
 
   .register-link {
     margin-top: 2rem !important;
-    span { color: rgba(255, 255, 255, 0.5) !important; }
-    a { 
+
+    span {
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    a {
       color: white !important;
       text-decoration: none;
       border-bottom: 2px solid rgba(79, 195, 247, 0.6);
@@ -295,7 +321,15 @@
 }
 
 @keyframes float-bubbles {
-  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-  50% { transform: translate(20px, 30px) rotate(5deg) scale(1.05); }
-  100% { transform: translate(-15px, -20px) rotate(-5deg) scale(0.95); }
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: translate(20px, 30px) rotate(5deg) scale(1.05);
+  }
+
+  100% {
+    transform: translate(-15px, -20px) rotate(-5deg) scale(0.95);
+  }
 }

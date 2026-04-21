@@ -1,21 +1,32 @@
 <div class="login-container container-fluid">
-  <div class="row h-100">
+  
+  <!-- Dynamic Background for Mobile -->
+  <div class="mobile-dynamic-bg d-md-none">
+    <div class="glass-shape shape-1"></div>
+    <div class="glass-shape shape-2"></div>
+    <div class="glass-shape shape-3"></div>
+  </div>
+
+  <div class="row h-100 position-relative">
 
     <!-- Branding -->
     <div class="col-lg-6 d-none d-lg-flex branding">
       <div class="branding-content">
         <img src="assets/images/logo_optica_blanco.png" alt="Óptica Logo" class="logo">
-        <h1>Óptica NISSI VISIÓN</h1>
         <p>Claridad para tu vida</p>
       </div>
     </div>
 
     <!-- Formulario -->
-    <div class="col-lg-6 col-md-12 d-flex align-items-center justify-content-center">
+    <div class="col-lg-6 col-md-12 d-flex align-items-center justify-content-center login-form-col">
 
-      <mat-card class="login-card">
+      <mat-card class="login-card glass-card">
 
-        <mat-card-title class="text-center">
+        <div class="mobile-logo-header d-md-none text-center mb-1">
+          <img src="assets/images/logo_optica_blanco.png" alt="Óptica Logo" class="mobile-logo">
+        </div>
+
+        <mat-card-title class="text-center login-title">
           Crear Cuenta
         </mat-card-title>
 
@@ -24,53 +35,44 @@
           <form [formGroup]="registerForm" (ngSubmit)="register()">
 
             <!-- Nombre -->
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100 native-input">
               <mat-label>Nombres</mat-label>
               <input matInput formControlName="firstName">
               <mat-icon matPrefix>person</mat-icon>
-              <mat-error *ngIf="f['firstName'].touched && f['firstName'].invalid">
-                Nombre requerido
-              </mat-error>
             </mat-form-field>
 
             <!-- Apellido -->
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100 native-input">
               <mat-label>Apellidos</mat-label>
               <input matInput formControlName="lastName">
               <mat-icon matPrefix>badge</mat-icon>
             </mat-form-field>
 
             <!-- Cedula -->
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100 native-input">
               <mat-label>Cédula</mat-label>
               <input matInput formControlName="identification">
               <mat-icon matPrefix>credit_card</mat-icon>
-              <mat-error *ngIf="f['identification'].errors?.['cedula']">
-                Cédula ecuatoriana inválida
-              </mat-error>
             </mat-form-field>
 
             <!-- Email -->
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100 native-input">
               <mat-label>Email</mat-label>
               <input matInput formControlName="email">
               <mat-icon matPrefix>email</mat-icon>
-              <mat-error *ngIf="f['email'].errors?.['email']">
-                Email inválido
-              </mat-error>
             </mat-form-field>
 
             <!-- Password -->
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100 native-input">
               <mat-label>Contraseña</mat-label>
               <input matInput [type]="hide ? 'password':'text'" formControlName="password">
-              <button mat-icon-button matSuffix type="button" (click)="hide=!hide">
+              <button mat-icon-button matSuffix type="button" (click)="hide = !hide" class="v-btn">
                 <mat-icon>{{hide?'visibility_off':'visibility'}}</mat-icon>
               </button>
             </mat-form-field>
 
-            <!-- Barra seguridad -->
-            <div class="password-strength-wrapper">
+            <!-- Barra seguridad (Ultra Compacta) -->
+            <div class="password-strength-wrapper mb-2">
               <span class="strength-label">Seguridad:</span>
               <div class="password-strength">
                 <div class="bar" [style.width.%]="passwordStrength"></div>
@@ -78,24 +80,25 @@
             </div>
             
             <!-- Confirmar -->
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100 native-input">
               <mat-label>Confirmar contraseña</mat-label>
               <input matInput [type]="hide2?'password':'text'" formControlName="confirmPassword">
-              <button mat-icon-button matSuffix type="button" (click)="hide2=!hide2">
+              <button mat-icon-button matSuffix type="button" (click)="hide2 = !hide2" class="v-btn">
                 <mat-icon>{{hide2?'visibility_off':'visibility'}}</mat-icon>
               </button>
-              <mat-error *ngIf="registerForm.errors?.['notMatch']">
-                Las contraseñas no coinciden
-              </mat-error>
             </mat-form-field>
 
+            <mat-error *ngIf="registerForm.errors?.['notMatch']" class="text-center d-block mb-2" style="font-size: 11px; color: #ff5252;">
+              Las contraseñas no coinciden
+            </mat-error>
+
             <button mat-raised-button color="primary"
-              class="w-100 login-btn"
+              class="w-100 login-btn premium-btn"
               type="submit"
               [disabled]="registerForm.invalid || loading">
 
-              <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-              <span *ngIf="!loading">Registrarse</span>
+              <mat-progress-spinner *ngIf="loading" diameter="25" color="accent" class="mx-auto"></mat-progress-spinner>
+              <span *ngIf="!loading">Registrarse Ahora</span>
 
             </button>
 
@@ -109,4 +112,3 @@
 
   </div>
 </div>
-

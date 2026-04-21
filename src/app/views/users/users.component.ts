@@ -7,6 +7,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-users',
@@ -19,12 +20,14 @@ import { MatIconModule } from '@angular/material/icon';
     MatSlideToggleModule, 
     MatCardModule, 
     MatButtonModule, 
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   users: any[] = [];
   displayedColumns: string[] = ['username', 'email', 'f_creation', 'status'];
+  loading: boolean = false;
 
   constructor(private apiService: ApiService, private toastr: ToastrService) {}
 
@@ -33,6 +36,7 @@ export class UsersComponent {
   }
 
   loadUsers(): void {
+    this.loading = true;
     this.apiService.getAllUsers().subscribe({
       next: (data: any) => {
         console.log('DATOS RECIBIDOS DEL SERVIDOR:', data);
@@ -49,6 +53,10 @@ export class UsersComponent {
       error: (err) => {
         console.error('Error al cargar usuarios:', err);
         this.toastr.error('No se pudo cargar la lista de usuarios');
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }
