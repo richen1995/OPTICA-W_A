@@ -16,9 +16,9 @@ import { registerrequest } from '../models/registerrequest';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:8080';
+  //private baseUrl = 'http://localhost:8080';
   //private baseUrl = 'https://jail-converted-quantitative-considerable.trycloudflare.com';
-  //private baseUrl = 'https://optica-w-a-back.onrender.com';
+  private baseUrl = 'https://optica-w-a-back.onrender.com';
 
 
 
