@@ -7,6 +7,21 @@
 table {
     min-width: 600px;
     background: white;
+
+    .mat-mdc-header-cell {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #6c757d;
+        height: 36px;
+        padding: 0 8px !important;
+    }
+
+    .mat-mdc-cell {
+        font-size: 0.82rem;
+        height: 36px;
+        padding: 0 8px !important;
+    }
 }
 
 .user-row {
@@ -20,6 +35,8 @@ table {
 // VISTA DE TARJETAS (MOVIL)
 .user-mobile-card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 0.5rem !important;
+    padding: 0.5rem !important;
 }
 
 .user-mobile-card:active {
@@ -27,14 +44,62 @@ table {
 }
 
 .user-avatar-mini {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
 }
 
 // ESTILO GENERAL
 .mat-mdc-card-header {
-    padding: 1.5rem 1.25rem;
+    padding: 0.4rem 1rem !important;
+    min-height: 48px;
+    background-color: #f8f9fa !important;
+}
+
+// BUSCADOR PREMIUM
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 240px;
+    transition: all 0.3s ease;
+}
+
+.premium-search-input {
+    width: 100%;
+    height: 34px;
+    padding: 0 12px 0 36px;
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+    background-color: white;
+    font-size: 0.85rem;
+    color: #495057;
+    transition: all 0.3s ease;
+    outline: none;
+
+    &::placeholder {
+        color: #adb5bd;
+        font-style: italic;
+    }
+
+    &:focus {
+        border-color: #3c4b64; // Color primario de CoreUI
+        box-shadow: 0 0 0 3px rgba(60, 75, 100, 0.1);
+        width: 280px; // Crece ligeramente al enfocar
+    }
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 1.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    color: #adb5bd;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mat-mdc-table {
@@ -42,7 +107,15 @@ table {
 }
 
 @media (max-width: 767.98px) {
+    .search-container {
+        width: 160px;
+        
+        &:focus-within {
+            width: 200px;
+        }
+    }
+    
     .mat-mdc-header-row {
-        display: none; // Ocultar cabecera de tabla en movil si llegara a mostrarse
+        display: none; 
     }
 }
