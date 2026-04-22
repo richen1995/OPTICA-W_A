@@ -53,6 +53,16 @@
               <td mat-cell *matCellDef="let user" class="px-3"> {{ (user.fcreation || user.f_creation) | date:'dd/MM/yyyy' }} </td>
             </ng-container>
 
+            <ng-container matColumnDef="role">
+              <th mat-header-cell *matHeaderCellDef class="px-3"> Rol </th>
+              <td mat-cell *matCellDef="let user" class="px-3"> 
+                <span class="badge rounded-pill" 
+                      [ngClass]="getRoleLabel(user) === 'Administrador' ? 'bg-primary' : 'bg-secondary'">
+                  {{ getRoleLabel(user) }}
+                </span>
+              </td>
+            </ng-container>
+
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef class="px-3 text-center"> Estado </th>
               <td mat-cell *matCellDef="let user" class="px-3 text-center">
@@ -79,7 +89,14 @@
                   {{ user.person?.first_name ? user.person.first_name.charAt(0).toUpperCase() : (user.username ? user.username.charAt(0).toUpperCase() : '?') }}
                 </div>
                 <div>
-                  <div class="fw-bold text-dark">{{ user.person?.first_name }} {{ user.person?.last_name }}</div>
+                  <div class="fw-bold text-dark d-flex align-items-center">
+                    {{ user.person?.first_name }} {{ user.person?.last_name }}
+                    <span class="badge rounded-pill ms-2" 
+                          [ngClass]="getRoleLabel(user) === 'Administrador' ? 'bg-primary' : 'bg-secondary'"
+                          style="font-size: 0.65rem;">
+                      {{ getRoleLabel(user) }}
+                    </span>
+                  </div>
                   <div class="small text-muted">&#64;{{ user.username || 'sin-usuario' }}</div>
                 </div>
               </div>

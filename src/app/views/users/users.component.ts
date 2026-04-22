@@ -30,7 +30,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class UsersComponent implements OnInit {
   dataSource = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['username', 'fullName', 'f_creation', 'status'];
+  displayedColumns: string[] = ['username', 'fullName', 'f_creation', 'role', 'status'];
   loading: boolean = false;
 
   constructor(private apiService: ApiService, private toastr: ToastrService) {}
@@ -40,14 +40,22 @@ export class UsersComponent implements OnInit {
     
     // Configurar predicado de filtrado personalizado para buscar en el objeto anidado 'person'
     this.dataSource.filterPredicate = (data, filter: string) => {
+      const roleLabel = this.getRoleLabel(data);
       const searchStr = (
         (data.username || '') + 
         (data.person?.first_name || '') + 
         (data.person?.last_name || '') + 
-        (data.person?.identification || '')
+        (data.person?.identification || '') +
+        roleLabel
       ).toLowerCase();
       return searchStr.indexOf(filter) !== -1;
     };
+  }
+
+  getRoleLabel(user: any): string {
+    if (!user.userRoles || !Array.isArray(user.userRoles)) return 'Normal';
+    const isAdmin = user.userRoles.some((ur: any) => ur.role?.name === 'ADMIN');
+    return isAdmin ? 'Administrador' : 'Normal';
   }
 
   loadUsers(): void {
@@ -63,6 +71,14 @@ export class UsersComponent implements OnInit {
         } else {
           console.warn('La respuesta no tiene el formato de arreglo esperado.');
         }
+
+        // ORDENAR: De la más actual a la más antigua
+        usersArray.sort((a: any, b: any) => {
+          const dateA = new Date(a.fcreation || a.f_creation || 0).getTime();
+          const dateB = new Date(b.fcreation || b.f_creation || 0).getTime();
+          return dateB - dateA; // Descendente: de mayor (nuevo) a menor (viejo)
+        });
+
         this.dataSource.data = usersArray;
       },
       error: (err) => {
