@@ -219,9 +219,9 @@ export class PatientsComponent implements OnInit, OnDestroy {
   recibirObjMedicalRecord(event: string) {
     const data = JSON.parse(event);
     
-    // Si el ID es 0, significa que es una búsqueda nueva o un examen recién iniciado (reciclado).
-    // Limpiamos los arrays de exámenes para que Lensometría, Agudeza y RX empiecen vacíos.
-    if (this.idMedicalRecord === 0) {
+    // Si el ID de la historia es 0, significa que es una búsqueda nueva o un examen recién iniciado (reciclado).
+    // Nos aseguramos de que los arrays de exámenes estén vacíos para empezar desde cero.
+    if (data.id_medical_record === 0) {
       data.lensometries = [];
       data.visualAcuities = [];
       data.rx = [];

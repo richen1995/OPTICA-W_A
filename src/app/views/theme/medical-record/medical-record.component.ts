@@ -89,6 +89,7 @@ export class MedicalRecordComponent implements OnInit {
           // para que Lensometría, Agudeza Visual y RX comiencen vacíos en el nuevo examen.
           const cleanRecord = { 
             ...latestRecord, 
+            id_medical_record: 0, // Importante: ID 0 para que sea tratado como un nuevo examen
             lensometries: [], 
             visualAcuities: [], 
             rx: [] 
