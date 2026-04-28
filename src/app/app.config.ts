@@ -15,6 +15,8 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { Toast, ToastrModule } from 'ngx-toastr';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getSpanishPaginatorIntl } from './shared/paginator-intl';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,6 +35,7 @@ export const appConfig: ApplicationConfig = {
       withHashLocation()
     ),
     importProvidersFrom(SidebarModule, DropdownModule, ToastrModule.forRoot()),
-    IconSetService
+    IconSetService,
+    { provide: MatPaginatorIntl, useFactory: getSpanishPaginatorIntl }
   ]
 };

@@ -4,15 +4,16 @@
     transition: all 0.3s ease !important;
     padding: 0.5rem 1rem !important;
     border-radius: 6px;
+    color: var(--cui-body-color) !important;
 
     &:hover {
-        color: #3c4b64 !important;
-        background-color: rgba(60, 75, 100, 0.05);
+        color: var(--cui-primary) !important;
+        background-color: rgba(var(--cui-primary-rgb), 0.1);
     }
 
     &.active {
-        color: #3c4b64 !important;
-        background-color: rgba(60, 75, 100, 0.1);
+        color: var(--cui-primary) !important;
+        background-color: rgba(var(--cui-primary-rgb), 0.15);
         font-weight: 700;
     }
 }
