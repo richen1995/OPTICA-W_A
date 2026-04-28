@@ -1,8 +1,8 @@
 <form [formGroup]="formularioRx" (ngSubmit)="enviarFormulario()">
     <div class="card-body p-3">
         <div class="table-responsive mb-4">
-        <table class="table table-hover align-middle text-center shadow-sm" style="border: 1px solid #d1e7dd;">
-            <thead class="table-success text-dark">
+        <table class="table table-hover align-middle text-center shadow-sm border border-success-subtle">
+            <thead class="table-success">
             <tr>
                 <th style="width: 20%;">OJO</th>
                 <th>PRESCIPCIÓN / RX</th>
@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <tr formGroupName="od_rx">
-                <td class="fw-bold bg-light text-success">Ojo Derecho (OD)</td>
+                <td class="fw-bold text-success ojo-label">Ojo Derecho (OD)</td>
                 <td data-label="Prescripción">
                     <input type="text" class="form-control form-control-sm fw-bold text-success text-center"
                             formControlName="rx_desc_od" placeholder="Ej: -1.25 -0.50 x 180">
@@ -38,7 +38,7 @@
             </tr>
 
             <tr formGroupName="oi_rx">
-                <td class="fw-bold bg-light text-success">Ojo Izquierdo (OI)</td>
+                <td class="fw-bold text-success ojo-label">Ojo Izquierdo (OI)</td>
                 <td data-label="Prescripción">
                     <input type="text" class="form-control form-control-sm fw-bold text-success text-center"
                             formControlName="rx_desc_oi" placeholder="Prescripción">

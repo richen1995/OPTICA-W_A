@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-forgot-password',
@@ -39,9 +40,13 @@ export class ForgotPasswordComponent {
           this.isLoading = false;
           this.router.navigate(['/login']);
         },
-        error: (err) => {
-          console.error(err);
-          this.toastr.error('Ocurrió un error al procesar la solicitud.');
+        error: (err: HttpErrorResponse) => {
+          console.error('Error de recuperación:', err);
+          if (err.status === 0) {
+            this.toastr.error('No se pudo conectar con el servidor. El backend podría estar caído.', 'Error de Conexión');
+          } else {
+            this.toastr.error('Ocurrió un error al procesar la solicitud.');
+          }
           this.isLoading = false;
         }
       });

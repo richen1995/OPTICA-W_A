@@ -93,12 +93,20 @@ input::placeholder {
     color: #4da3ff !important;
   }
   
-  .mat-mdc-paginator {
+  .mat-mdc-paginator,
+  .mat-mdc-paginator-container,
+  .mat-mdc-select-value,
+  .mat-mdc-paginator-range-label,
+  .mat-mdc-paginator-page-size-label {
     background-color: var(--cui-card-bg) !important;
-    color: var(--cui-secondary-color) !important;
+    color: var(--cui-body-color) !important;
   }
 
   .mat-mdc-paginator-icon {
+    fill: var(--cui-body-color) !important;
+  }
+
+  .mat-mdc-select-arrow svg {
     fill: var(--cui-body-color) !important;
   }
 
@@ -138,9 +146,115 @@ input::placeholder {
   .form-floating > label {
     color: var(--cui-secondary-color) !important;
   }
+
+  // --- DARK THEME UTILITY OVERRIDES ---
+  // Fix for hardcoded table header colors
+  .table-info { 
+    background-color: rgba(var(--cui-info-rgb), 0.15) !important; 
+    color: #6edff6 !important; // Cyan claro
+    border-color: rgba(var(--cui-info-rgb), 0.3) !important; 
+  }
+  .table-warning { 
+    background-color: rgba(var(--cui-warning-rgb), 0.15) !important; 
+    color: #ffda6a !important; // Amarillo claro
+    border-color: rgba(var(--cui-warning-rgb), 0.3) !important; 
+  }
+  .table-success { 
+    background-color: rgba(var(--cui-success-rgb), 0.15) !important; 
+    color: #75b798 !important; // Verde claro
+    border-color: rgba(var(--cui-success-rgb), 0.3) !important; 
+  }
+
+  // Fix for light backgrounds and dark text utilities
+  .bg-light { 
+    background-color: var(--cui-tertiary-bg) !important; 
+    color: var(--cui-body-color) !important; 
+  }
+  .bg-light-subtle { 
+    background-color: rgba(255, 255, 255, 0.05) !important; 
+    color: var(--cui-body-color) !important;
+  }
   
+  .text-dark { 
+    color: var(--cui-body-color) !important; 
+  }
+  .text-black { 
+    color: #ffffff !important; 
+  }
+  .text-muted {
+    color: var(--cui-secondary-color) !important;
+  }
+
+  // Fix for border-white used as separator in some tables
+  .border-white {
+    border-color: var(--cui-border-color) !important;
+  }
+
+  // FORCE header toggler and icons visibility
+  .btn[cHeaderToggler], 
+  .header-toggler,
+  .c-header-toggler,
+  [cSidebarToggle] {
+    color: #ffffff !important;
+    svg, i {
+      fill: #ffffff !important;
+      color: #ffffff !important;
+    }
+  }
+
+  c-header-nav svg,
+  .header-nav svg,
+  .nav-link svg,
+  .nav-link i {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+  }
+
+  // Links in header
+  .nav-link-premium {
+    color: #ffffff !important;
+  }
+
+  // --- MATERIAL EXPANSION PANEL DARK ---
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description,
+  .mat-panel-title,
+  .mat-panel-description {
+    color: var(--cui-body-color) !important;
+  }
+
+  .mat-expansion-panel {
+    background-color: var(--cui-card-bg) !important;
+    color: var(--cui-body-color) !important;
+  }
+
   body {
     background-color: var(--cui-body-bg) !important;
+  }
+
+  // Global override for ALL text that might be hardcoded to dark
+  .text-dark, .text-black, .text-secondary, [style*="color: #475569"] {
+    color: var(--cui-body-color) !important;
+  }
+  
+  .text-muted {
+    color: var(--cui-secondary-color) !important;
+  }
+
+  .bg-light {
+    background-color: var(--cui-tertiary-bg) !important;
+  }
+
+  // Overlays (Dropdowns del paginador, selects, etc)
+  .cdk-overlay-pane {
+    .mat-mdc-select-panel, .mat-mdc-menu-panel, .mat-mdc-autocomplete-panel {
+      background-color: var(--cui-card-bg) !important;
+    }
+    .mat-mdc-option {
+      color: var(--cui-body-color) !important;
+      &:hover { background-color: rgba(255, 255, 255, 0.05) !important; }
+      &.mdc-list-item--selected { background-color: rgba(var(--cui-primary-rgb), 0.2) !important; }
+    }
   }
 }
 

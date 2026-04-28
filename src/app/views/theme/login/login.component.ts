@@ -72,8 +72,14 @@ export class LoginComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.isLoading = false;
-          console.error(error.error.error);
-          this.toastr.error(error.error.error);
+          console.error('Error de login:', error);
+          
+          if (error.status === 0) {
+            this.toastr.error('No se pudo conectar con el servidor. Por favor, verifique que el backend esté iniciado.', 'Error de Conexión');
+          } else {
+            const errorMessage = error.error?.error || 'Ocurrió un error inesperado al iniciar sesión.';
+            this.toastr.error(errorMessage, 'Error de Login');
+          }
         }
       });
     }

@@ -1,8 +1,8 @@
 <form [formGroup]="formularioVisualAcuity" (ngSubmit)="enviarFormulario()">
     <div class="card-body p-3">         
         <div class="table-responsive mb-4">
-            <table class="table table-hover align-middle text-center shadow-sm" style="border: 1px solid #fff3cd; border-collapse: separate; border-spacing: 0; border-radius: 8px; overflow: hidden;">
-                <thead class="table-warning text-dark border-bottom" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            <table class="table table-hover align-middle text-center shadow-sm border border-warning-subtle">
+                <thead class="table-warning border-bottom" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
                     <!-- Fila 1 Cabecera -->
                     <tr>
                         <th rowspan="2" class="align-middle border-bottom-0" style="min-width: 140px;">OJO / POSICIÓN</th>
@@ -21,7 +21,7 @@
                 <tbody style="font-size: 0.85rem;">
                     <!-- Ojo Derecho -->
                     <tr formGroupName="od_av">
-                        <td class="fw-bold bg-light text-warning-emphasis border-end ojo-label">Ojo Derecho (OD)</td>
+                        <td class="fw-bold text-warning-emphasis border-end ojo-label">Ojo Derecho (OD)</td>
                         <td data-label="VL / SC">
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
                                    formControlName="visual_acuity_vl_sc_od" placeholder="VL">
@@ -30,7 +30,7 @@
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
                                    formControlName="visual_acuity_vl_cc_od" placeholder="VL-CC">
                         </td>
-                        <td data-label="PH" class="bg-light-subtle border-start border-end ph-cell">
+                        <td data-label="PH" class="border-start border-end ph-cell">
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold text-warning-emphasis"
                                    formControlName="ph_od" placeholder="PH">
                         </td>
@@ -46,7 +46,7 @@
 
                     <!-- Ojo Izquierdo -->
                     <tr formGroupName="oi_av">
-                        <td class="fw-bold bg-light text-warning-emphasis border-end ojo-label">Ojo Izquierdo (OI)</td>
+                        <td class="fw-bold text-warning-emphasis border-end ojo-label">Ojo Izquierdo (OI)</td>
                         <td data-label="VL / SC">
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
                                    formControlName="visual_acuity_vl_sc_oi" placeholder="VL">
@@ -55,7 +55,7 @@
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center"
                                    formControlName="visual_acuity_vl_cc_oi" placeholder="VL-CC">
                         </td>
-                        <td data-label="PH" class="bg-light-subtle border-start border-end ph-cell">
+                        <td data-label="PH" class="border-start border-end ph-cell">
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold text-warning-emphasis"
                                    formControlName="ph_oi" placeholder="PH">
                         </td>
@@ -71,7 +71,7 @@
 
                     <!-- Ambos Ojos -->
                     <tr formGroupName="ao_av">
-                        <td class="fw-bold bg-light border-end ojo-label">Ambos Ojos (AO)</td>
+                        <td class="fw-bold border-end ojo-label">Ambos Ojos (AO)</td>
                         <td data-label="AO VL / SC">
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
                                    formControlName="visual_acuity_vl_sc_ao" placeholder="AO - VL">
@@ -80,7 +80,7 @@
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
                                    formControlName="visual_acuity_vl_cc_ao" placeholder="AO - CC">
                         </td>
-                        <td data-label="AO PH" class="bg-light-subtle border-start border-end ph-cell">
+                        <td data-label="AO PH" class="border-start border-end ph-cell">
                             <input type="text" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold"
                                    formControlName="ph_ao" placeholder="AO - PH">
                         </td>

@@ -81,9 +81,9 @@
         background-color: var(--cui-card-bg) !important;
         color: var(--cui-body-color) !important;
 
-        thead th {
-            background-color: var(--cui-tertiary-bg) !important;
-            color: var(--cui-body-color) !important;
+        thead.table-info th {
+            background-color: rgba(var(--cui-info-rgb), 0.15) !important;
+            color: var(--cui-info) !important;
             border-bottom-color: var(--cui-border-color) !important;
         }
 
@@ -126,6 +126,12 @@
 
         .table td {
             background: var(--cui-card-bg) !important;
+        }
+
+        .ojo-label {
+            background-color: var(--cui-tertiary-bg) !important;
+            color: var(--cui-info) !important;
+            font-weight: 800 !important;
         }
 
         .table td::before {

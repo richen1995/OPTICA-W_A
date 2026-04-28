@@ -146,27 +146,24 @@
             color: #e2e8f0 !important;
         }
 
-        // Tablas custom oscuras
-        .medical-table {
+        // Tablas generales y detalles clínicos
+        .medical-table, .table {
             border-color: var(--cui-border-color) !important;
-            background: var(--cui-card-bg) !important;
+            background: transparent !important;
             color: var(--cui-body-color) !important;
+
+            thead.table-info { background: rgba(var(--cui-info-rgb), 0.2) !important; color: var(--cui-info) !important; }
+            thead.table-warning { background: rgba(var(--cui-warning-rgb), 0.2) !important; color: var(--cui-warning) !important; }
+            thead.table-success { background: rgba(var(--cui-success-rgb), 0.2) !important; color: var(--cui-success) !important; }
+            
+            th, td {
+                border-color: var(--cui-border-color) !important;
+                color: inherit !important;
+                background-color: transparent !important;
+            }
         }
 
-        .medical-table thead {
-            background: var(--cui-tertiary-bg) !important;
-        }
-
-        .medical-table th {
-            color: var(--cui-secondary-color) !important;
-        }
-
-        .medical-table td {
-            border-bottom-color: var(--cui-border-color) !important;
-            color: #e2e8f0 !important;
-        }
-
-        .medical-table tbody tr:hover {
+        .medical-table tbody tr:hover, .table tbody tr:hover {
             background: rgba(255, 255, 255, 0.05) !important;
         }
 

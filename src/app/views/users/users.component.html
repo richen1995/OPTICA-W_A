@@ -23,7 +23,7 @@
     <mat-card-content class="p-0 position-relative" style="min-height: 200px;">
       
       <!-- Loader Overlay -->
-      <div *ngIf="loading" class="d-flex justify-content-center align-items-center position-absolute w-100 h-100 bg-white" style="z-index: 10; top: 0; left: 0;">
+      <div *ngIf="loading" class="d-flex justify-content-center align-items-center position-absolute w-100 h-100" style="z-index: 10; top: 0; left: 0; background-color: var(--cui-body-bg);">
         <div class="text-center">
           <mat-spinner diameter="50" class="mx-auto mb-3"></mat-spinner>
           <p class="text-muted fw-medium">Cargando usuarios...</p>
@@ -82,14 +82,14 @@
 
         <!-- VISTA DE TARJETAS (Móvil) -->
         <div class="d-md-none p-3">
-          <div *ngFor="let user of dataSource.filteredData" class="user-mobile-card mb-3 border rounded p-3 shadow-sm bg-white">
+          <div *ngFor="let user of dataSource.filteredData" class="user-mobile-card mb-3 border rounded p-3 shadow-sm" style="background-color: var(--cui-card-bg);">
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div class="d-flex align-items-center">
                 <div class="user-avatar-mini me-3 bg-info text-white rounded-circle d-flex align-items-center justify-content-center fw-bold">
                   {{ user.person?.first_name ? user.person.first_name.charAt(0).toUpperCase() : (user.username ? user.username.charAt(0).toUpperCase() : '?') }}
                 </div>
                 <div>
-                  <div class="fw-bold text-dark d-flex align-items-center">
+                  <div class="fw-bold text-body d-flex align-items-center">
                     {{ user.person?.first_name }} {{ user.person?.last_name }}
                     <span class="badge rounded-pill ms-2" 
                           [ngClass]="getRoleLabel(user) === 'Administrador' ? 'bg-primary' : 'bg-secondary'"

@@ -2,8 +2,8 @@
 
     <div class="card-body p-3">               
         <div class="table-responsive mb-4">
-            <table class="table table-hover align-middle text-center shadow-sm" style="border: 1px solid #cff4fc;">
-                <thead class="table-info text-dark">
+            <table class="table table-hover align-middle text-center shadow-sm border border-info-subtle">
+                <thead class="table-info">
                 <tr>
                     <th style="width: 25%;">OJO / POSICIÓN</th>
                     <th>AV. VL / CC</th>
@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                 <tr formGroupName="od">
-                    <td class="fw-bold bg-light text-primary">Ojo Derecho (OD)</td>
+                    <td class="fw-bold text-primary ojo-label">Ojo Derecho (OD)</td>
                     <td data-label="AV. VL/CC">
                         <input type="text" class="form-control form-control-sm text-center"
                                 formControlName="lensometry_av_vl_od" placeholder="VL">
@@ -24,7 +24,7 @@
                 </tr>
 
                 <tr formGroupName="oi">
-                    <td class="fw-bold bg-light text-primary">Ojo Izquierdo (OI)</td>
+                    <td class="fw-bold text-primary ojo-label">Ojo Izquierdo (OI)</td>
                     <td data-label="AV. VL/CC">
                         <input type="text" class="form-control form-control-sm text-center"
                                 formControlName="lensometry_av_vl_oi" placeholder="VL">

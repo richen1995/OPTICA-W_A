@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -58,7 +58,9 @@ export class PatientsComponent implements OnInit, OnDestroy {
   isSaving: boolean = false; 
   isSearching: boolean = false;
   isComplete: boolean = false; 
-  isEditMode: boolean = false;  private destroy$ = new Subject<void>(); 
+  isEditMode: boolean = false;
+  isLoading: boolean = false;
+  private destroy$ = new Subject<void>(); 
 
   @ViewChild(MedicalRecordComponent) medicalRecordComp!: MedicalRecordComponent;
   @ViewChild(LensometryComponent) lensometryComp!: LensometryComponent;
@@ -66,7 +68,8 @@ export class PatientsComponent implements OnInit, OnDestroy {
   @ViewChild(RxComponent) rxComp!: RxComponent;
   
   constructor(private fb: FormBuilder, private personaService: ApiService,
-              private toastr: ToastrService, private route: ActivatedRoute
+              private toastr: ToastrService, private route: ActivatedRoute,
+              private cdr: ChangeDetectorRef
   ) {
 
     this.formulario = this.fb.group({
@@ -504,12 +507,24 @@ export class PatientsComponent implements OnInit, OnDestroy {
   }
 
   cargarExamenParaEditar(id: number) {
-    this.toastr.info('Cargando examen para edición...', 'Edición');
-    this.personaService.getMedicalRecordDataExtended(id).subscribe({
-      next: (data) => {
-        if (data && data.length > 0) {
-          const record = data[0];
-          this.isEditMode = true;
+    // Usamos setTimeout para mover la operación fuera del ciclo de detección actual
+    setTimeout(() => {
+      this.isLoading = true;
+      this.cdr.detectChanges(); 
+      this.toastr.info('Cargando examen para edición...', 'Edición');
+      
+      this.personaService.getMedicalRecordDataExtended(id)
+      .pipe(finalize(() => {
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }))
+      .subscribe({
+        next: (data) => {
+          if (data && data.length > 0) {
+            const record = data[0];
+            this.isEditMode = true;
+// ... rest of the logic
+
           this.objPerson = record.person;
           this.idPerson = record.person.id_person!;
           this.idMedicalRecord = record.id_medical_record!;
@@ -540,7 +555,6 @@ export class PatientsComponent implements OnInit, OnDestroy {
           this.edad = this.calcularEdad();
           this.bloquearCampos();
           this.formulario.markAsPristine();
-
           // El objeto record ya viene con lensometries, visualAcuities y rx
           // Al asignar this.idMedicalRecord y this.objMedicalRecord, los @Inputs de los hijos se dispararán
           this.objMedicalRecord = record as any; 
@@ -551,6 +565,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     });
+   }, 0);
   }
 
   limpiarParaNuevoPaciente(cedula: string) {

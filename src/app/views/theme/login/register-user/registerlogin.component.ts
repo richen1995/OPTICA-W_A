@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from '../../../../services/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registerlogin',
@@ -80,10 +81,14 @@ export class RegisterloginComponent {
         this.toastr.success('Usuario registrado correctamente', '¡Éxito!'); // Mensaje de éxito
         this.router.navigate(['/login']);
       },
-      error:(err)=>{
-        this.loading=false;
-        console.error(err);
-        this.toastr.error('Hubo un problema al registrar el usuario', 'Error'); // Mensaje de error
+      error: (err: HttpErrorResponse) => {
+        this.loading = false;
+        console.error('Error de registro:', err);
+        if (err.status === 0) {
+          this.toastr.error('No se pudo conectar con el servidor. El backend podría estar caído.', 'Error de Conexión');
+        } else {
+          this.toastr.error(err.error?.error || 'Hubo un problema al registrar el usuario', 'Error');
+        }
       }
     });
     

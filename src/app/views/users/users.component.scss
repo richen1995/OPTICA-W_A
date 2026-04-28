@@ -6,13 +6,13 @@
 
 table {
     min-width: 600px;
-    background: white;
+    background: transparent;
 
     .mat-mdc-header-cell {
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
-        color: #6c757d;
+        color: var(--cui-secondary-color, #6c757d);
         height: 36px;
         padding: 0 8px !important;
     }
@@ -21,6 +21,7 @@ table {
         font-size: 0.82rem;
         height: 36px;
         padding: 0 8px !important;
+        color: var(--cui-body-color);
     }
 }
 
@@ -29,7 +30,7 @@ table {
 }
 
 .user-row:hover {
-    background-color: rgba(0, 0, 0, 0.02);
+    background-color: rgba(var(--cui-body-color-rgb), 0.05);
 }
 
 // VISTA DE TARJETAS (MOVIL)
@@ -37,6 +38,8 @@ table {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin-bottom: 0.5rem !important;
     padding: 0.5rem !important;
+    background-color: var(--cui-card-bg, #fff);
+    color: var(--cui-body-color);
 }
 
 .user-mobile-card:active {
@@ -53,7 +56,7 @@ table {
 .mat-mdc-card-header {
     padding: 0.4rem 1rem !important;
     min-height: 48px;
-    background-color: #f8f9fa !important;
+    background-color: var(--cui-tertiary-bg, #f8f9fa) !important;
 }
 
 // BUSCADOR PREMIUM
@@ -70,21 +73,21 @@ table {
     height: 34px;
     padding: 0 12px 0 36px;
     border-radius: 20px;
-    border: 1px solid #dee2e6;
-    background-color: white;
+    border: 1px solid var(--cui-border-color, #dee2e6);
+    background-color: var(--cui-card-bg, #fff);
     font-size: 0.85rem;
-    color: #495057;
+    color: var(--cui-body-color, #495057);
     transition: all 0.3s ease;
     outline: none;
 
     &::placeholder {
-        color: #adb5bd;
+        color: var(--cui-secondary-color, #adb5bd);
         font-style: italic;
     }
 
     &:focus {
-        border-color: #3c4b64; // Color primario de CoreUI
-        box-shadow: 0 0 0 3px rgba(60, 75, 100, 0.1);
+        border-color: var(--cui-primary);
+        box-shadow: 0 0 0 3px rgba(var(--cui-primary-rgb), 0.15);
         width: 280px; // Crece ligeramente al enfocar
     }
 }
@@ -95,7 +98,7 @@ table {
     font-size: 1.1rem;
     width: 1.1rem;
     height: 1.1rem;
-    color: #adb5bd;
+    color: var(--cui-secondary-color, #adb5bd);
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -117,5 +120,16 @@ table {
     
     .mat-mdc-header-row {
         display: none; 
+    }
+}
+
+:host-context([data-coreui-theme="dark"]) {
+    .mat-mdc-card-header {
+        background-color: var(--cui-tertiary-bg) !important;
+    }
+    .premium-search-input {
+        background-color: var(--cui-body-bg) !important;
+        border-color: var(--cui-border-color) !important;
+        color: var(--cui-body-color) !important;
     }
 }

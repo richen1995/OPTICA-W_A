@@ -79,14 +79,14 @@ body {
 }
 
 .swal2-title.premium-swal-title {
-  color: #1a1a1a !important;
+  color: var(--cui-body-color, #1a1a1a) !important;
   font-weight: 700 !important;
   font-size: 1.4rem !important;
   padding-top: 0.5rem !important;
 }
 
 .swal2-html-container.premium-swal-content {
-  color: #555 !important;
+  color: var(--cui-secondary-color, #555) !important;
   font-size: 1rem !important;
   line-height: 1.5 !important;
   margin-top: 0.5rem !important;
@@ -207,15 +207,15 @@ body {
     tr {
       display: block;
       margin-bottom: 1rem;
-      border: 1px solid #eee;
+      border: 1px solid var(--cui-border-color, #eee);
       border-radius: 10px;
       padding: 0.5rem;
-      background: #fff;
+      background: var(--cui-card-bg, #fff);
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 
       &.table-active {
-        background-color: #f8f9fa !important;
-        border-left: 2px solid #adb5bd;
+        background-color: var(--cui-tertiary-bg, #f8f9fa) !important;
+        border-left: 2px solid var(--cui-border-color);
       }
     }
     td {
@@ -224,16 +224,16 @@ body {
       align-items: center;
       text-align: right !important;
       padding: 0.5rem 0.75rem !important;
-      border-top: 1px solid #f0f0f0 !important;
+      border-top: 1px solid var(--cui-border-color, #f0f0f0) !important;
       border-bottom: none !important;
       border-left: none !important;
       border-right: none !important;
 
       &:first-child {
         border-top: none !important;
-        background-color: #f8f9fa !important;
+        background-color: var(--cui-tertiary-bg, #f8f9fa) !important;
         font-weight: bold;
-        color: #333;
+        color: var(--cui-body-color, #333);
         border-radius: 8px 8px 0 0;
       }
 
@@ -243,7 +243,7 @@ body {
         font-weight: 700;
         text-transform: uppercase;
         font-size: 0.7rem;
-        color: #6c757d;
+        color: var(--cui-secondary-color, #6c757d);
         text-align: left;
         margin-right: 15px;
       }
@@ -253,4 +253,12 @@ body {
       }
     }
   }
+}
+
+// Global SweetAlert Theme Adjustments
+[data-coreui-theme="dark"] {
+    .swal2-popup.premium-swal {
+        background: #212631 !important;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
 }

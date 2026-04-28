@@ -1,130 +1,136 @@
-/* Estilos Premium para Agudeza Visual - Mobile & Desktop */
 .table-responsive {
-    border: none;
+    background-color: transparent !important;
+    border-radius: 8px;
 }
 
 .table {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    background-color: white;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    margin-bottom: 0 !important;
+    background-color: transparent !important;
+    color: var(--cui-body-color) !important;
+    border: none !important;
+
+    th, td {
+        background-color: var(--cui-card-bg, #ffffff) !important;
+        border-color: var(--cui-border-color) !important;
+        color: inherit !important;
+        padding: 10px !important;
+    }
+
+    // Cabeceras (TEMA CLARO)
+    thead.table-warning th {
+        background-color: #ffe8a1 !important; // Amarillo vibrante
+        color: #7d5a00 !important;
+        font-weight: 700;
+        border-color: #ffe082 !important;
+    }
+
+    &.table-hover tbody tr:hover td {
+        background-color: rgba(var(--cui-primary-rgb), 0.05) !important;
+    }
 
     input.form-control {
+        color: var(--cui-body-color) !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        text-align: center;
+        width: 100%;
+        
+        &::placeholder {
+            color: var(--cui-secondary-color) !important;
+            opacity: 0.4;
+        }
+
         &:focus {
-            background-color: rgba(255, 193, 7, 0.05);
-            box-shadow: inset 0 0 0 1px #ffc107 !important;
+            background-color: rgba(var(--cui-warning-rgb), 0.1) !important;
         }
     }
+}
+
+// Clase especial para las etiquetas de los ojos (Valores por defecto para TEMA CLARO)
+.ojo-label {
+    background-color: #fff3cd !important; // Amarillo/Naranja sutil (warning-subtle)
+    color: #7d5a00 !important; // Color idéntico al del título de la tabla
+    font-weight: 800 !important;
+    text-transform: uppercase;
+}
+
+.ph-cell {
+    background-color: rgba(var(--cui-warning-rgb), 0.05) !important;
 }
 
 // --- TRANSFORMACIÓN MÓVIL (NATIVA PREMIUM) ---
 @media (max-width: 768px) {
     .table thead {
-        display: none; // Ocultamos la cabecera compleja en móvil
+        display: none !important;
     }
 
     .table, .table tbody, .table tr, .table td {
-        display: block;
-        width: 100%;
+        display: block !important;
+        width: 100% !important;
     }
 
     .table tr {
-        margin-bottom: 2rem;
-        border: 1px solid #ffeeba !important;
-        border-radius: 16px;
-        background: #fff;
-        padding: 0;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); // Cuadrícula de 2 columnas
+        margin-bottom: 1.5rem !important;
+        border: 1px solid var(--cui-border-color) !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
     }
 
-    // Cabecera del "Ojo" (OD, OI, AO)
     .table td.ojo-label {
-        grid-column: span 2;
-        background-color: #ffc107 !important;
+        grid-column: span 2 !important;
+        padding: 8px !important;
+        background-color: var(--cui-warning) !important; // En móvil el amarillo resalta más
         color: #000 !important;
-        font-size: 1rem;
-        text-align: center;
-        padding: 12px !important;
-        border: none !important;
-        border-bottom: 2px solid #e9ecef !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        text-align: center !important;
+        border-bottom: 2px solid var(--cui-border-color) !important;
     }
 
-    // Celdas de datos
     .table td:not(.ojo-label) {
-        border: 1px solid #f8f9fa !important;
-        padding: 25px 10px 10px 10px !important;
-        position: relative;
-        min-height: 70px;
-        display: flex;
-        align-items: flex-end;
+        padding-top: 22px !important;
+        position: relative !important;
+        border: 0.5px solid var(--cui-border-color) !important;
 
         &::before {
             content: attr(data-label);
             position: absolute;
-            top: 8px;
-            left: 10px;
+            top: 4px;
+            left: 8px;
             font-size: 0.65rem;
-            font-weight: 800;
-            color: #ff9800; // Un naranja corporativo
+            font-weight: 700;
+            color: var(--cui-warning);
             text-transform: uppercase;
         }
 
         &.ph-cell {
-            grid-column: span 2; // El PH ocupa todo el ancho
-            background-color: #fff9db !important;
-            border-top: 1px solid #ffeeba !important;
-            border-bottom: 1px solid #ffeeba !important;
+            grid-column: span 2 !important;
+            background-color: rgba(var(--cui-warning-rgb), 0.08) !important;
         }
-    }
-
-    .form-control {
-        font-weight: bold;
-        font-size: 1rem !important;
     }
 }
 
-// --- SOPORTE PARA MODO OSCURO (DARK THEME) ---
+// Soporte específico para Dark Mode
 :host-context([data-coreui-theme="dark"]) {
-    .table {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
-        background-color: #212631 !important;
-        border-color: #323a49 !important;
-
-        thead.table-warning {
-            background-color: #997404 !important;
-            color: white !important;
-        }
-
-        td, th {
-            border-color: #323a49 !important;
-            color: #d8dbe0 !important;
-        }
+    .table th, .table td {
+        background-color: var(--cui-body-bg) !important;
+    }
+    
+    .table thead th {
+        background-color: rgba(var(--cui-warning-rgb), 0.15) !important;
+        color: var(--cui-warning) !important;
     }
 
-    @media (max-width: 768px) {
-        .table tr {
-            background: #212631 !important;
-            border-color: #4f5d73 !important;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
+    .ojo-label {
+        background-color: var(--cui-tertiary-bg) !important;
+        color: var(--cui-warning) !important;
+    }
 
-        .table td.ojo-label {
-            background-color: #997404 !important;
-            color: #fff !important;
-        }
-
-        .table td:not(.ojo-label) {
-            background: #212631 !important;
-            border-color: #323a49 !important;
-
-            &.ph-cell {
-                background-color: rgba(255, 193, 7, 0.1) !important;
-            }
-        }
+    .ph-cell {
+        background-color: rgba(var(--cui-warning-rgb), 0.1) !important;
     }
 }

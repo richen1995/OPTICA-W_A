@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { CommonModule } from '@angular/common';
 
@@ -64,9 +65,13 @@ export class ResetPasswordComponent implements OnInit {
           this.isLoading = false;
           this.router.navigate(['/login']);
         },
-        error: (err) => {
-          console.error(err);
-          this.toastr.error('Error al restablecer la contraseña. El token podría haber expirado.');
+        error: (err: HttpErrorResponse) => {
+          console.error('Error de reseteo:', err);
+          if (err.status === 0) {
+            this.toastr.error('No se pudo conectar con el servidor. El backend podría estar caído.', 'Error de Conexión');
+          } else {
+            this.toastr.error('Error al restablecer la contraseña. El token podría haber expirado.');
+          }
           this.isLoading = false;
         }
       });

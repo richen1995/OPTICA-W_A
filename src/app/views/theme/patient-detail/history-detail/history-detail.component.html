@@ -62,14 +62,14 @@
           </div>
           <div class="col-md-3">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Último Chequeo</small>
-            <p class="mb-0 text-dark fw-medium">
+            <p class="mb-0 fw-medium">
               <i class="bi bi-clock-history me-1 text-primary"></i>
               {{ objMedicalRecordsExtended?.last_checkup || 'No registra' }}
             </p>
           </div>
           <div class="col-md-6 border-start ps-4">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Motivo de Consulta</small>
-            <p class="mb-0 text-dark" style="font-size: 14px;">{{ objMedicalRecordsExtended?.reasons_for_visit || 'N/A' }}</p>
+            <p class="mb-0" style="font-size: 14px;">{{ objMedicalRecordsExtended?.reasons_for_visit || 'N/A' }}</p>
           </div>
         </div>
 
@@ -87,11 +87,11 @@
             <div class="ms-1 ps-4 border-start">
               <div class="mb-2">
                 <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">OCULARES</small>
-                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.ph_ocular?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.ph_ocular || 'No refiere' }}</span>
+                <span [class.text-muted]="objMedicalRecordsExtended?.ph_ocular?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.ph_ocular || 'No refiere' }}</span>
               </div>
               <div>
                 <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">GENERALES</small>
-                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.ph_general?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.ph_general || 'No refiere' }}</span>
+                <span [class.text-muted]="objMedicalRecordsExtended?.ph_general?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.ph_general || 'No refiere' }}</span>
               </div>
             </div>
           </div>
@@ -108,11 +108,11 @@
             <div class="ms-1 ps-4 border-start">
               <div class="mb-2">
                 <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">OCULARES</small>
-                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.fh_ocular?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.fh_ocular || 'No refiere' }}</span>
+                <span [class.text-muted]="objMedicalRecordsExtended?.fh_ocular?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.fh_ocular || 'No refiere' }}</span>
               </div>
               <div>
                 <small class="text-muted d-block" style="font-size: 10px; font-weight: 700;">GENERALES</small>
-                <span class="text-dark" [class.text-muted]="objMedicalRecordsExtended?.fh_general?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.fh_general || 'No refiere' }}</span>
+                <span [class.text-muted]="objMedicalRecordsExtended?.fh_general?.toLowerCase() === 'no refiere'">{{ objMedicalRecordsExtended?.fh_general || 'No refiere' }}</span>
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@
 
         <!-- Observaciones Adicionales -->
         <div class="row mt-3 pt-2">
-          <div class="col-12 bg-light p-2 rounded-3 border-start border-3 border-warning">
+          <div class="col-12 p-2 rounded-3 border-start border-3 border-warning">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Otras Enfermedades / Observaciones</small>
             <p class="mb-0 italic" style="font-size: 13px; color: #475569;">
               <i class="bi bi-info-circle me-1 text-warning"></i>
@@ -140,7 +140,7 @@
       <mat-card *ngIf="objMedicalRecordsExtended?.lensometries?.length; else noLensData" class="p-3 border-start border-3 border-info">
         <div class="table-responsive">
           <table class="table table-sm table-hover text-center align-middle mb-3 table-stack-mobile">
-            <thead class="table-info text-dark">
+            <thead class="table-info">
               <tr>
                 <th style="width: 80px;">OJO</th>
                 <th>AV. VL/CC</th>
@@ -149,12 +149,12 @@
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold bg-light" data-label="Ojo">OD</td>
+                <td class="fw-bold" data-label="Ojo">OD</td>
                 <td class="fw-medium" data-label="AV. VL/CC">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vl_od || '---' }}</td>
                 <td class="fw-medium" data-label="AV. VP">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_od || '---' }}</td>
               </tr>
               <tr>
-                <td class="fw-bold bg-light" data-label="Ojo">OI</td>
+                <td class="fw-bold" data-label="Ojo">OI</td>
                 <td class="fw-medium" data-label="AV. VL/CC">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vl_oi || '---' }}</td>
                 <td class="fw-medium" data-label="AV. VP">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_oi || '---' }}</td>
               </tr>
@@ -165,19 +165,19 @@
         <div class="row g-3">
           <div class="col-md-3">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Tipo de Lente</small>
-            <p class="mb-0 text-dark fw-medium"><i class="bi bi-layers me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.lens_type || 'N/A' }}</p>
+            <p class="mb-0 fw-medium"><i class="bi bi-layers me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.lens_type || 'N/A' }}</p>
           </div>
           <div class="col-md-3">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Material</small>
-            <p class="mb-0 text-dark fw-medium"><i class="bi bi-box-seam me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.lens_material || 'N/A' }}</p>
+            <p class="mb-0 fw-medium"><i class="bi bi-box-seam me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.lens_material || 'N/A' }}</p>
           </div>
           <div class="col-md-3">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Filtro</small>
-            <p class="mb-0 text-dark fw-medium"><i class="bi bi-palette me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.filter || 'N/A' }}</p>
+            <p class="mb-0 fw-medium"><i class="bi bi-palette me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.filter || 'N/A' }}</p>
           </div>
           <div class="col-md-3">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Tiempo en uso RX</small>
-            <p class="mb-0 text-dark fw-medium"><i class="bi bi-hourglass-split me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.time_using_rx || 'N/A' }}</p>
+            <p class="mb-0 fw-medium"><i class="bi bi-hourglass-split me-2 text-info"></i>{{ objMedicalRecordsExtended?.lensometries?.[0]?.time_using_rx || 'N/A' }}</p>
           </div>
         </div>
       </mat-card>
@@ -198,7 +198,7 @@
       <mat-card *ngIf="objMedicalRecordsExtended?.visualAcuities?.length; else noVAData" class="p-3 border-start border-3 border-warning shadow-sm">
         <div class="table-responsive">
           <table class="table table-sm table-bordered text-center align-middle mb-3 table-stack-mobile border">
-            <thead class="table-warning text-dark" style="font-size: 0.75rem;">
+            <thead class="table-warning" style="font-size: 0.75rem;">
               <tr>
                 <th rowspan="2" class="align-middle" style="width: 80px;">OJO</th>
                 <th colspan="2">VL (6 m)</th>
@@ -215,7 +215,7 @@
             <tbody style="font-size: 0.85rem;">
               <!-- Ojo Derecho -->
               <tr>
-                <td class="fw-bold bg-light" data-label="Ojo">OD</td>
+                <td class="fw-bold" data-label="Ojo">OD</td>
                 <td class="fw-medium" data-label="VL SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_sc_od || '---'}}</td>
                 <td class="fw-medium text-primary" data-label="VL CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_cc_od || '---'}}</td>
                 <td class="fw-bold text-warning-emphasis bg-light-subtle" data-label="PH">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.ph_od || '---'}}</td>
@@ -224,7 +224,7 @@
               </tr>
               <!-- Ojo Izquierdo -->
               <tr>
-                <td class="fw-bold bg-light" data-label="Ojo">OI</td>
+                <td class="fw-bold" data-label="Ojo">OI</td>
                 <td class="fw-medium" data-label="VL SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_sc_oi || '---'}}</td>
                 <td class="fw-medium text-primary" data-label="VL CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_cc_oi || '---'}}</td>
                 <td class="fw-bold text-warning-emphasis bg-light-subtle" data-label="PH">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.ph_oi || '---'}}</td>
@@ -234,10 +234,10 @@
               <!-- Ambos Ojos -->
               <tr class="table-light">
                 <td class="fw-bold bg-secondary-subtle" data-label="Ojo">AO</td>
-                <td class="fw-bold text-dark" data-label="VL SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_sc_ao || '---'}}</td>
+                <td class="fw-bold" data-label="VL SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_sc_ao || '---'}}</td>
                 <td class="fw-bold text-primary" data-label="VL CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vl_cc_ao || '---'}}</td>
                 <td class="fw-bold text-warning-emphasis bg-secondary-subtle" data-label="PH">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.ph_ao || '---'}}</td>
-                <td class="fw-bold text-dark" data-label="VP SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_sc_ao || '---'}}</td>
+                <td class="fw-bold" data-label="VP SC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_sc_ao || '---'}}</td>
                 <td class="fw-bold text-primary" data-label="VP CC">{{objMedicalRecordsExtended?.visualAcuities?.[0]?.visual_acuity_vp_cc_ao || '---'}}</td>
               </tr>
             </tbody>
@@ -246,7 +246,7 @@
         <div class="row">
           <div class="col-md-12">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Dominancia Ocular</small>
-            <p class="mb-0 text-dark fw-medium"><i class="bi bi-eye-fill me-2 text-warning"></i>{{ objMedicalRecordsExtended?.visualAcuities?.[0]?.dominance || 'No especificada' }}</p>
+            <p class="mb-0 fw-medium"><i class="bi bi-eye-fill me-2 text-warning"></i>{{ objMedicalRecordsExtended?.visualAcuities?.[0]?.dominance || 'No especificada' }}</p>
           </div>
         </div>
       </mat-card>
@@ -267,7 +267,7 @@
       <mat-card id="rx-final-print" *ngIf="objMedicalRecordsExtended?.rx?.length; else noRxData" class="p-3 border-start border-3 border-success shadow-sm">
         <div class="table-responsive">
           <table class="table table-sm table-hover text-center align-middle mb-3 table-stack-mobile">
-            <thead class="table-success text-dark">
+            <thead class="table-success">
               <tr>
                 <th style="width: 80px;"></th>
                 <th>RX</th>
@@ -279,7 +279,7 @@
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold bg-light" data-label="Ojo">OD</td>
+                <td class="fw-bold" data-label="Ojo">OD</td>
                 <td class="fw-bold text-success" style="font-size: 15px;" data-label="Prescripción">{{objMedicalRecordsExtended?.rx?.[0]?.rx_desc_od || '---'}}</td>
                 <td class="fw-medium" data-label="AV. VL.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_av_vl_od || '---'}}</td>
                 <td class="fw-medium" data-label="ADD.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_add_od || '---'}}</td>
@@ -287,7 +287,7 @@
                 <td class="fw-medium" data-label="DNP.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_dnp_od || '---'}}</td>
               </tr>
               <tr>
-                <td class="fw-bold bg-light" data-label="Ojo">OI</td>
+                <td class="fw-bold" data-label="Ojo">OI</td>
                 <td class="fw-bold text-success" style="font-size: 15px;" data-label="Prescripción">{{objMedicalRecordsExtended?.rx?.[0]?.rx_desc_oi || '---'}}</td>
                 <td class="fw-medium" data-label="AV. VL.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_av_vl_oi || '---'}}</td>
                 <td class="fw-medium" data-label="ADD.">{{objMedicalRecordsExtended?.rx?.[0]?.rx_add_oi || '---'}}</td>
@@ -301,11 +301,11 @@
         <div class="row g-3">
           <div class="col-md-6 border-end">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Observaciones Clínicas</small>
-            <p class="mb-0 text-dark" style="font-size: 13px;"><i class="bi bi-chat-left-dots me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.observations || 'Sin observaciones' }}</p>
+            <p class="mb-0" style="font-size: 13px;"><i class="bi bi-chat-left-dots me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.observations || 'Sin observaciones' }}</p>
           </div>
           <div class="col-md-6 ps-md-4">
             <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Tratamiento Recomendado</small>
-            <p class="mb-0 fw-semibold text-dark" style="font-size: 13px;"><i class="bi bi-clipboard2-check me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.treatment || 'No especificado' }}</p>
+            <p class="mb-0 fw-semibold" style="font-size: 13px;"><i class="bi bi-clipboard2-check me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.treatment || 'No especificado' }}</p>
           </div>
         </div>
       </mat-card>
