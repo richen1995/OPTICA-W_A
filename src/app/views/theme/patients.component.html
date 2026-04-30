@@ -99,10 +99,16 @@
 
               <div class="col-12 col-md-4" *ngFor="let field of ['f_birthdate']">
                 <div class="form-floating">
-                  <input type="date" class="form-control" [formControlName]="field" id="floatDate" (change)="edad = calcularEdad()"
+                  <input type="date" class="form-control" [formControlName]="field" id="floatDate" 
+                         [max]="maxBirthDate"
+                         (change)="edad = calcularEdad()"
                          [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
                          [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
                   <label for="floatDate"><i class="bi bi-calendar-event me-1"></i> Fecha de nacimiento</label>
+                  <div class="invalid-feedback" *ngIf="formulario.get(field)?.hasError('minAge')">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    El paciente debe tener al menos 2 años de edad.
+                  </div>
                 </div>
               </div>
 

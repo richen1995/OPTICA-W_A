@@ -60,6 +60,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
   isComplete: boolean = false; 
   isEditMode: boolean = false;
   isLoading: boolean = false;
+  maxBirthDate: string;
   private destroy$ = new Subject<void>(); 
 
   @ViewChild(MedicalRecordComponent) medicalRecordComp!: MedicalRecordComponent;
@@ -71,6 +72,10 @@ export class PatientsComponent implements OnInit, OnDestroy {
               private toastr: ToastrService, private route: ActivatedRoute,
               private cdr: ChangeDetectorRef
   ) {
+    // Fecha máxima: hace 2 años (edad mínima del paciente)
+    const today = new Date();
+    const minAgeDate = new Date(today.getFullYear() - 2, today.getMonth(), today.getDate());
+    this.maxBirthDate = minAgeDate.toISOString().split('T')[0];
 
     this.formulario = this.fb.group({
       id_person: [null], 
