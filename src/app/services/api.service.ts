@@ -17,20 +17,13 @@ import { registerrequest } from '../models/registerrequest';
 export class ApiService {
 
   //private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'https://opticaw-aback-production.up.railway.app';
   //private baseUrl = 'https://jail-converted-quantitative-considerable.trycloudflare.com';
-  private baseUrl = 'https://optica-w-a-back.onrender.com';
+  //private baseUrl = 'https://optica-w-a-back.onrender.com';
 
 
 
   constructor(private http: HttpClient) { }
-
-/*   getData(endpoint: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/person/${endpoint}`);
-  }
-
-  postData(endpoint: string, data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${endpoint}`, data);
-  } */
 
   //PERSONA
   createPersona(persona: person): Observable<person> {
