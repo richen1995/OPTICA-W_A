@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { debounceTime, map, catchError, of, Observable, switchMap, take, timer } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -48,7 +49,7 @@ export class RegisterloginComponent {
       firstName:['',Validators.required],
       lastName:['',Validators.required],
       identification:['',[Validators.required,this.cedulaValidator]],
-      email:['',[Validators.required,Validators.email]],
+      email:['',[Validators.required,Validators.email],[this.emailValidator()]],
       password:['',[Validators.required,Validators.minLength(6)]],
       confirmPassword:['']
     },{validators:this.passwordMatch});
@@ -125,6 +126,22 @@ export class RegisterloginComponent {
 
     const dig=(10-(total%10))%10;
     return dig==ced[9]?null:{cedula:true};
+  }
+
+  emailValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value) {
+        return of(null);
+      }
+      return timer(500).pipe(
+        switchMap(() => this.apiService.checkEmailExists(control.value)),
+        map(response => {
+          const exists = typeof response === 'boolean' ? response : response?.exists;
+          return exists ? { emailTaken: true } : null;
+        }),
+        catchError(() => of(null))
+      );
+    };
   }
 
 }

@@ -39,6 +39,7 @@
               <mat-label>Nombres</mat-label>
               <input matInput formControlName="firstName">
               <mat-icon matPrefix>person</mat-icon>
+              <mat-error *ngIf="f['firstName'].errors?.['required']">El nombre es requerido</mat-error>
             </mat-form-field>
 
             <!-- Apellido -->
@@ -46,6 +47,7 @@
               <mat-label>Apellidos</mat-label>
               <input matInput formControlName="lastName">
               <mat-icon matPrefix>badge</mat-icon>
+              <mat-error *ngIf="f['lastName'].errors?.['required']">El apellido es requerido</mat-error>
             </mat-form-field>
 
             <!-- Cedula -->
@@ -53,6 +55,8 @@
               <mat-label>Cédula</mat-label>
               <input matInput formControlName="identification">
               <mat-icon matPrefix>credit_card</mat-icon>
+              <mat-error *ngIf="f['identification'].errors?.['required']">La cédula es requerida</mat-error>
+              <mat-error *ngIf="f['identification'].errors?.['cedula']">Cédula inválida</mat-error>
             </mat-form-field>
 
             <!-- Email -->
@@ -60,6 +64,9 @@
               <mat-label>Email</mat-label>
               <input matInput formControlName="email">
               <mat-icon matPrefix>email</mat-icon>
+              <mat-error *ngIf="f['email'].errors?.['required']">El email es requerido</mat-error>
+              <mat-error *ngIf="f['email'].errors?.['email']">Ingrese un formato de email válido</mat-error>
+              <mat-error *ngIf="f['email'].errors?.['emailTaken']">Este email ya se encuentra registrado</mat-error>
             </mat-form-field>
 
             <!-- Password -->
@@ -69,6 +76,8 @@
               <button mat-icon-button matSuffix type="button" (click)="hide = !hide" class="v-btn">
                 <mat-icon>{{hide?'visibility_off':'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="f['password'].errors?.['required']">La contraseña es requerida</mat-error>
+              <mat-error *ngIf="f['password'].errors?.['minlength']">Mínimo 6 caracteres</mat-error>
             </mat-form-field>
 
             <!-- Barra seguridad (Ultra Compacta) -->
