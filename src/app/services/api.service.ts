@@ -18,7 +18,6 @@ export class ApiService {
 
   //private baseUrl = 'http://localhost:8080';
   private baseUrl = 'https://opticaw-aback-production.up.railway.app';
-  //private baseUrl = 'https://jail-converted-quantitative-considerable.trycloudflare.com';
   //private baseUrl = 'https://optica-w-a-back.onrender.com';
 
 
@@ -150,6 +149,11 @@ export class ApiService {
 
   updateUserStatus(id_user: number, is_active: boolean): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}/auth/users/${id_user}/status`, { is_active });
+  }
+
+  // VALIDAR EMAIL DUPLICADO
+  checkEmailExists(email: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/auth/check-email/${email}`);
   }
 }
 
