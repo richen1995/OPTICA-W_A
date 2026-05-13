@@ -9,11 +9,13 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MedicalRecordComponent } from './medical-record/medical-record.component';
 import { LensometryComponent } from './lensometry/lensometry.component';
 import { VisualAcuityComponent } from './visual-acuity/visual-acuity.component'; 
+import { RefractionComponent } from './refraction/refraction.component';
 import { RxComponent } from './rx/rx.component'; 
 import { medicalRecord } from '../../models/medical-record.model';
 import { MedicalRecordExtended } from '../../models/fullmedicaldata.model';
 import { lensometry } from '../../models/lensometry.model';
 import { visualAcuity } from '../../models/visual-acuity.model';
+import { refraction } from '../../models/refraction.model';
 import { rx } from '../../models/rx.model';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -36,6 +38,7 @@ import Swal from 'sweetalert2';
     MedicalRecordComponent, 
     LensometryComponent, 
     VisualAcuityComponent, 
+    RefractionComponent,
     RxComponent,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -66,6 +69,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
   @ViewChild(MedicalRecordComponent) medicalRecordComp!: MedicalRecordComponent;
   @ViewChild(LensometryComponent) lensometryComp!: LensometryComponent;
   @ViewChild(VisualAcuityComponent) visualAcuityComp!: VisualAcuityComponent;
+  @ViewChild(RefractionComponent) refractionComp!: RefractionComponent;
   @ViewChild(RxComponent) rxComp!: RxComponent;
   
   constructor(private fb: FormBuilder, private personaService: ApiService,
@@ -232,6 +236,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
     if (data.id_medical_record === 0) {
       data.lensometries = [];
       data.visualAcuities = [];
+      data.refractions = [];
       data.rx = [];
     }
 
@@ -287,11 +292,13 @@ export class PatientsComponent implements OnInit, OnDestroy {
     const formMR = this.medicalRecordComp.formularioMedicalRecord;
     const formLens = this.lensometryComp.formularioLensometry;
     const formVA = this.visualAcuityComp.formularioVisualAcuity;
+    const formRef = this.refractionComp.formularioRefraction;
     const formRx = this.rxComp.formularioRx;
 
     formMR.markAllAsTouched();
     formLens.markAllAsTouched();
     formVA.markAllAsTouched();
+    formRef.markAllAsTouched();
     formRx.markAllAsTouched();
 
     if (formMR.invalid) {
@@ -307,6 +314,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
     const medicalData = formMR.getRawValue();
     const lensData = formLens.getRawValue();
     const vaData = formVA.getRawValue();
+    const refData = formRef.getRawValue();
     const rxData = formRx.getRawValue();
 
     const fullVisit: MedicalRecordExtended = {
@@ -368,6 +376,25 @@ export class PatientsComponent implements OnInit, OnDestroy {
         f_creation: vaData.f_creation || new Date().toISOString(),
         f_update: new Date().toISOString()
       }] : [] as visualAcuity[],
+      
+      refractions: this.hasValue(refData) ? [{
+        id_refraction: refData.id_refraction || 0,
+        id_medical_record: this.idMedicalRecord || 0,
+        ref_sphere_dynamic_od: refData.od.ref_sphere_dynamic_od,
+        ref_cylinder_dynamic_od: refData.od.ref_cylinder_dynamic_od,
+        ref_axis_dynamic_od: refData.od.ref_axis_dynamic_od,
+        ref_sphere_dynamic_oi: refData.oi.ref_sphere_dynamic_oi,
+        ref_cylinder_dynamic_oi: refData.oi.ref_cylinder_dynamic_oi,
+        ref_axis_dynamic_oi: refData.oi.ref_axis_dynamic_oi,
+        ref_sphere_static_od: refData.od.ref_sphere_static_od,
+        ref_cylinder_static_od: refData.od.ref_cylinder_static_od,
+        ref_axis_static_od: refData.od.ref_axis_static_od,
+        ref_sphere_static_oi: refData.oi.ref_sphere_static_oi,
+        ref_cylinder_static_oi: refData.oi.ref_cylinder_static_oi,
+        ref_axis_static_oi: refData.oi.ref_axis_static_oi,
+        f_creation: refData.f_creation || new Date().toISOString(),
+        f_update: new Date().toISOString()
+      }] : [] as refraction[],
 
       rx: this.hasValue(rxData) ? [{
         id_rx: rxData.id_rx || 0,
@@ -421,7 +448,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
     return Object.keys(obj).some(key => {
       const val = obj[key];
       if (key === 'id_medical_record' || key === 'f_creation' || key === 'f_update' 
-          || key === 'id_visual_acuity' || key === 'id_lensometry' || key === 'id_rx'
+          || key === 'id_visual_acuity' || key === 'id_lensometry' || key === 'id_refraction' || key === 'id_rx'
           || key === 'distancia_vl' || key === 'distancia_vp') return false;
       
       if (typeof val === 'object' && val !== null) {

@@ -71,6 +71,36 @@
         background: #ffffff;
     }
 
+    // Custom Slate Theme for Refraction
+    .table-slate {
+        background-color: #90a4ae !important;
+        color: #263238 !important;
+
+        th {
+            background-color: #90a4ae !important;
+            color: #263238 !important;
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+    }
+
+    .border-slate {
+        border-color: #90a4ae !important;
+    }
+
+    .border-slate-subtle {
+        border-color: #cfd8dc !important;
+    }
+
+    .text-slate {
+        color: #455a64 !important;
+    }
+
+    .ojo-label {
+        color: #455a64 !important;
+        font-size: 13px;
+        letter-spacing: 0.3px;
+    }
+
     .medical-table thead {
         background: #f1f5f9;
         font-weight: 600;
@@ -155,6 +185,7 @@
             thead.table-info { background: rgba(var(--cui-info-rgb), 0.2) !important; color: var(--cui-info) !important; }
             thead.table-warning { background: rgba(var(--cui-warning-rgb), 0.2) !important; color: var(--cui-warning) !important; }
             thead.table-success { background: rgba(var(--cui-success-rgb), 0.2) !important; color: var(--cui-success) !important; }
+            thead.table-slate { background: rgba(144, 164, 174, 0.25) !important; color: #ffffff !important; }
             
             th, td {
                 border-color: var(--cui-border-color) !important;
@@ -299,6 +330,19 @@
                     color: #64748b;
                     min-width: 100px;
                     text-align: left;
+                }
+
+                &.ojo-label {
+                    background-color: #f1f5f9 !important;
+                    justify-content: center !important;
+                    font-size: 13px !important;
+                    color: #455a64 !important;
+                    border-bottom: 2px solid #90a4ae !important;
+                    margin-bottom: 5px !important;
+
+                    &::before {
+                        display: none !important;
+                    }
                 }
 
                 &.text-primary {

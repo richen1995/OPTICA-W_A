@@ -144,19 +144,19 @@
               <tr>
                 <th style="width: 80px;">OJO</th>
                 <th>AV. VL/CC</th>
-                <th>AV. VP</th>
+                <th>ADD</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td class="fw-bold" data-label="Ojo">OD</td>
                 <td class="fw-medium" data-label="AV. VL/CC">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vl_od || '---' }}</td>
-                <td class="fw-medium" data-label="AV. VP">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_od || '---' }}</td>
+                <td class="fw-medium" data-label="ADD">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_od || '---' }}</td>
               </tr>
               <tr>
                 <td class="fw-bold" data-label="Ojo">OI</td>
                 <td class="fw-medium" data-label="AV. VL/CC">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vl_oi || '---' }}</td>
-                <td class="fw-medium" data-label="AV. VP">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_oi || '---' }}</td>
+                <td class="fw-medium" data-label="ADD">{{ objMedicalRecordsExtended?.lensometries?.[0]?.lensometry_av_vp_oi || '---' }}</td>
               </tr>
             </tbody>
           </table>
@@ -254,6 +254,77 @@
         <div class="no-data-msg-container">
           <mat-icon>info_outline</mat-icon>
           <p>No se ha registrado información de agudeza visual para este examen.</p>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <!-- REFRACCIÓN -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Refracción</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card *ngIf="objMedicalRecordsExtended?.refractions?.length; else noRefractionData" class="p-3 border-start border-3 border-slate shadow-sm">
+        
+        <div class="table-responsive mb-4">
+          <label class="form-label fw-semibold text-slate">Retinoscopía Dinámica</label>
+          <table class="table table-hover align-middle text-center shadow-sm border border-slate-subtle table-stack-mobile">
+            <thead class="table-slate">
+              <tr>
+                <th style="width: 25%;"> </th>
+                <th>ESFERA</th>
+                <th>CILINDRO</th>
+                <th>EJE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold text-slate ojo-label" data-label="OJO">Ojo Derecho (OD)</td>
+                <td class="fw-medium" data-label="ESFERA">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_sphere_dynamic_od || '---' }}</td>
+                <td class="fw-medium" data-label="CILINDRO">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_cylinder_dynamic_od || '---' }}</td>
+                <td class="fw-medium" data-label="EJE">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_axis_dynamic_od || '---' }}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold text-slate ojo-label" data-label="OJO">Ojo Izquierdo (OI)</td>
+                <td class="fw-medium" data-label="ESFERA">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_sphere_dynamic_oi || '---' }}</td>
+                <td class="fw-medium" data-label="CILINDRO">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_cylinder_dynamic_oi || '---' }}</td>
+                <td class="fw-medium" data-label="EJE">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_axis_dynamic_oi || '---' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <label class="form-label fw-semibold text-slate mt-4">Retinoscopía Estática</label>
+          <table class="table table-hover align-middle text-center shadow-sm border border-slate-subtle table-stack-mobile">
+            <thead class="table-slate">
+              <tr>
+                <th style="width: 25%;"> </th>
+                <th>ESFERA</th>
+                <th>CILINDRO</th>
+                <th>EJE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold text-slate ojo-label" data-label="OJO">Ojo Derecho (OD)</td>
+                <td class="fw-medium" data-label="ESFERA">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_sphere_static_od || '---' }}</td>
+                <td class="fw-medium" data-label="CILINDRO">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_cylinder_static_od || '---' }}</td>
+                <td class="fw-medium" data-label="EJE">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_axis_static_od || '---' }}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold text-slate ojo-label" data-label="OJO">Ojo Izquierdo (OI)</td>
+                <td class="fw-medium" data-label="ESFERA">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_sphere_static_oi || '---' }}</td>
+                <td class="fw-medium" data-label="CILINDRO">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_cylinder_static_oi || '---' }}</td>
+                <td class="fw-medium" data-label="EJE">{{ objMedicalRecordsExtended?.refractions?.[0]?.ref_axis_static_oi || '---' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </mat-card>
+      <ng-template #noRefractionData>
+        <div class="no-data-msg-container">
+          <mat-icon>info_outline</mat-icon>
+          <p>No se ha registrado información de refracción para este examen.</p>
         </div>
       </ng-template>
     </mat-expansion-panel>

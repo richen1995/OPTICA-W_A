@@ -1,0 +1,101 @@
+<form [formGroup]="formularioRefraction" (ngSubmit)="enviarFormulario()">
+
+    <div class="card-body p-3">               
+        <div class="table-responsive mb-4">
+            
+            <label for="" class="form-label fw-semibold">Retinoscopia Dinámica</label>
+
+            <table class="table table-hover align-middle text-center shadow-sm border border-slate-subtle">
+                <thead class="table-slate">
+                <tr>
+                    <th style="width: 25%;"> </th>
+                    <th>ESFERA</th>
+                    <th>CILINDRO</th>
+                    <th>EJE</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr formGroupName="od">
+                        <td class="fw-bold text-slate ojo-label">Ojo Derecho (OD)</td>
+                        <td data-label="ESFERA">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_sphere_dynamic_od" placeholder="Esfera">
+                        </td>
+                        <td data-label="CILINDRO">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_cylinder_dynamic_od" placeholder="Cilindro">
+                        </td>
+                        <td data-label="EJE">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_axis_dynamic_od" placeholder="Eje">
+                        </td>
+                    </tr>
+
+                    <tr formGroupName="oi">
+                        <td class="fw-bold text-slate ojo-label">Ojo Izquierdo (OI)</td>
+                        <td data-label="ESFERA">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_sphere_dynamic_oi" placeholder="Esfera">
+                        </td>
+                        <td data-label="CILINDRO">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_cylinder_dynamic_oi" placeholder="Cilindro">
+                        </td>
+                        <td data-label="EJE">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_axis_dynamic_oi" placeholder="Eje">
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+
+            <label for="" class="form-label fw-semibold">Retinoscopia Estática</label>
+
+            <table class="table table-hover align-middle text-center shadow-sm border border-slate-subtle">
+                <thead class="table-slate">
+                <tr>
+                    <th style="width: 25%;"> </th>
+                    <th>ESFERA</th>
+                    <th>CILINDRO</th>
+                    <th>EJE</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr formGroupName="od">
+                        <td class="fw-bold text-slate ojo-label">Ojo Derecho (OD)</td>
+                        <td data-label="ESFERA">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_sphere_static_od" placeholder="Esfera">
+                        </td>
+                        <td data-label="CILINDRO">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_cylinder_static_od" placeholder="Cilindro">
+                        </td>
+                        <td data-label="EJE">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_axis_static_od" placeholder="Eje">
+                        </td>
+                    </tr>
+
+                    <tr formGroupName="oi">
+                        <td class="fw-bold text-slate ojo-label">Ojo Izquierdo (OI)</td>
+                        <td data-label="ESFERA">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_sphere_static_oi" placeholder="Esfera">
+                        </td>
+                        <td data-label="CILINDRO">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_cylinder_static_oi" placeholder="Cilindro">
+                        </td>
+                        <td data-label="EJE">
+                            <input type="text" class="form-control form-control-sm text-center"
+                                    formControlName="ref_axis_static_oi" placeholder="Eje">
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

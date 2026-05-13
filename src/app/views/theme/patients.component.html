@@ -247,6 +247,13 @@
                           data-bs-target="#agudeza" type="button" role="tab">Agudeza Visual</button>
                 </li>
                 <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="refraccion-tab" 
+                          [class.disabled]="idPerson <= 0"
+                          (click)="idPerson <= 0 ? notifyNoPerson() : null"
+                          [attr.data-bs-toggle]="idPerson > 0 ? 'pill' : null" 
+                          data-bs-target="#refracción" type="button" role="tab">Refracción</button>
+                </li>
+                <li class="nav-item" role="presentation">
                   <button class="nav-link" id="rx_final-tab" 
                           [class.disabled]="idPerson <= 0"
                           (click)="idPerson <= 0 ? notifyNoPerson() : null"
@@ -287,8 +294,18 @@
                     [hideSaveButton]="true">
                   </app-visual-acuity>
                 </div>
+
+                  
+                <!-- SUBTAB 4: Refracción -->
+                <div class="tab-pane fade" id="refracción" role="tabpanel">
+                  <app-refraction 
+                    [id_medical_record]="idMedicalRecord" 
+                    [medicalRecordJSON]="objMedicalRecord" 
+                    [hideSaveButton]="true">
+                  </app-refraction>
+                </div>
   
-                <!-- SUBTAB 4: RX Final -->
+                <!-- SUBTAB 5: RX Final -->
                 <div class="tab-pane fade" id="rx_final" role="tabpanel">
                   <app-rx 
                     [id_medical_record]="idMedicalRecord" 

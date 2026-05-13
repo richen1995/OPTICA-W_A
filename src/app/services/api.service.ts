@@ -82,6 +82,15 @@ export class ApiService {
     return this.http.put<visualAcuity>(this.baseUrl + "/visual_acuities", visualAcuity);
   }  
 
+  //REFRACCIÓN
+  createRefraction(refraction: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + "/refraction", refraction);
+  }
+
+  updateRefraction(refraction: any): Observable<any> {
+    return this.http.put<any>(this.baseUrl + "/refraction", refraction);
+  }
+
   //DIAGNÓSTICO ÓPTICO (RX)
   createRx(rx: rx): Observable<rx> {
     return this.http.post<rx>(this.baseUrl + "/rx", rx);
