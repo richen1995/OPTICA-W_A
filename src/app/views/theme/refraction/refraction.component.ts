@@ -24,20 +24,12 @@ export class RefractionComponent implements OnInit, OnChanges {
     this.formularioRefraction = this.fb.group({
       id_refraction: [null],
       od: this.fb.group({
-        ref_sphere_dynamic_od: [''],
-        ref_cylinder_dynamic_od: [''],
-        ref_axis_dynamic_od: [''],
-        ref_sphere_static_od: [''],
-        ref_cylinder_static_od: [''],
-        ref_axis_static_od: [''],
+        ref_sph_cyl_ax_dym_od: [''],
+        ref_sph_cyl_ax_stat_od: [''],
       }),
       oi: this.fb.group({
-        ref_sphere_dynamic_oi: [''],
-        ref_cylinder_dynamic_oi: [''],
-        ref_axis_dynamic_oi: [''],
-        ref_sphere_static_oi: [''],
-        ref_cylinder_static_oi: [''],
-        ref_axis_static_oi: [''],
+        ref_sph_cyl_ax_dym_oi: [''],
+        ref_sph_cyl_ax_stat_oi: [''],
       })
     });
   }
@@ -59,20 +51,12 @@ export class RefractionComponent implements OnInit, OnChanges {
     this.formularioRefraction.patchValue({
       id_refraction: data.id_refraction,
       od: {
-        ref_sphere_dynamic_od: data.ref_sphere_dynamic_od,
-        ref_cylinder_dynamic_od: data.ref_cylinder_dynamic_od,
-        ref_axis_dynamic_od: data.ref_axis_dynamic_od,
-        ref_sphere_static_od: data.ref_sphere_static_od,
-        ref_cylinder_static_od: data.ref_cylinder_static_od,
-        ref_axis_static_od: data.ref_axis_static_od,
+        ref_sph_cyl_ax_dym_od: data.ref_sph_cyl_ax_dym_od,
+        ref_sph_cyl_ax_stat_od: data.ref_sph_cyl_ax_stat_od,
       },
       oi: {
-        ref_sphere_dynamic_oi: data.ref_sphere_dynamic_oi,
-        ref_cylinder_dynamic_oi: data.ref_cylinder_dynamic_oi,
-        ref_axis_dynamic_oi: data.ref_axis_dynamic_oi,
-        ref_sphere_static_oi: data.ref_sphere_static_oi,
-        ref_cylinder_static_oi: data.ref_cylinder_static_oi,
-        ref_axis_static_oi: data.ref_axis_static_oi,
+        ref_sph_cyl_ax_dym_oi: data.ref_sph_cyl_ax_dym_oi,
+        ref_sph_cyl_ax_stat_oi: data.ref_sph_cyl_ax_stat_oi,
       }
     });
   }
@@ -81,18 +65,11 @@ export class RefractionComponent implements OnInit, OnChanges {
     if (this.formularioRefraction.valid) {
       const formValue = this.formularioRefraction.value;
       const newRefraction: refraction = {
-        ref_sphere_dynamic_od: formValue.od.ref_sphere_dynamic_od,
-        ref_cylinder_dynamic_od: formValue.od.ref_cylinder_dynamic_od,
-        ref_axis_dynamic_od: formValue.od.ref_axis_dynamic_od,
-        ref_sphere_dynamic_oi: formValue.oi.ref_sphere_dynamic_oi,
-        ref_cylinder_dynamic_oi: formValue.oi.ref_cylinder_dynamic_oi,
-        ref_axis_dynamic_oi: formValue.oi.ref_axis_dynamic_oi,
-        ref_sphere_static_od: formValue.od.ref_sphere_static_od,
-        ref_cylinder_static_od: formValue.od.ref_cylinder_static_od,
-        ref_axis_static_od: formValue.od.ref_axis_static_od,
-        ref_sphere_static_oi: formValue.oi.ref_sphere_static_oi,
-        ref_cylinder_static_oi: formValue.oi.ref_cylinder_static_oi,
-        ref_axis_static_oi: formValue.oi.ref_axis_static_oi,
+        ref_sph_cyl_ax_dym_od: formValue.od.ref_sph_cyl_ax_dym_od,
+        ref_sph_cyl_ax_dym_oi: formValue.oi.ref_sph_cyl_ax_dym_oi,
+        ref_sph_cyl_ax_stat_od: formValue.od.ref_sph_cyl_ax_stat_od,
+        ref_sph_cyl_ax_stat_oi: formValue.oi.ref_sph_cyl_ax_stat_oi,
+
         id_medical_record: this.medicalRecordJSON?.id_medical_record ?? this.id_medical_record,
         f_creation: new Date().toISOString(),
         f_update: new Date().toISOString()

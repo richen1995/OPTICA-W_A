@@ -152,6 +152,7 @@ export class HistoryDetailComponent implements OnInit {
               padding: 6px;
               font-size: 12px;
               text-align: center;
+              color: #000;
             }
 
             th {
@@ -163,6 +164,14 @@ export class HistoryDetailComponent implements OnInit {
               color: #000080;
               font-weight: bold;
               font-size: 22px;
+            }
+
+            .text-success {
+              color: #000 !important;
+            }
+
+            .border-success {
+              border-color: #000 !important;
             }
           </style>
         </head>
