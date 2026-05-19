@@ -23,19 +23,23 @@
 
         <div class="col-12 col-md-3">
             <div class="form-group mb-0">
-                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                <label class="text-uppercase fw-bold d-block mb-1" style="font-size: 10px;"
+                       [ngClass]="{'text-danger': formularioMedicalRecord.get('last_checkup')?.invalid && formularioMedicalRecord.get('last_checkup')?.touched, 'text-muted': !(formularioMedicalRecord.get('last_checkup')?.invalid && formularioMedicalRecord.get('last_checkup')?.touched)}">
                     <i class="bi bi-clock-history me-1"></i>Último Control
                 </label>
-                <input type="text" class="form-control form-control-sm" formControlName="last_checkup" placeholder="Ej: 6 meses">
+                <input type="text" class="form-control form-control-sm" formControlName="last_checkup" placeholder="Ej: 6 meses"
+                       [ngClass]="{'is-invalid': formularioMedicalRecord.get('last_checkup')?.invalid && formularioMedicalRecord.get('last_checkup')?.touched}">
             </div>
         </div>
 
         <div class="col-12 col-md-6">
             <div class="form-group mb-0">
-                <label class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">
+                <label class="text-uppercase fw-bold d-block mb-1" style="font-size: 10px;"
+                       [ngClass]="{'text-danger': formularioMedicalRecord.get('reasons_for_visit')?.invalid && formularioMedicalRecord.get('reasons_for_visit')?.touched, 'text-muted': !(formularioMedicalRecord.get('reasons_for_visit')?.invalid && formularioMedicalRecord.get('reasons_for_visit')?.touched)}">
                     <i class="bi bi-question-circle me-1"></i>Motivo de Consulta
                 </label>
-                <input type="text" class="form-control form-control-sm" formControlName="reasons_for_visit" placeholder="Ej: Ojo rojo, visión borrosa...">
+                <input type="text" class="form-control form-control-sm" formControlName="reasons_for_visit" placeholder="Ej: Ojo rojo, visión borrosa..."
+                       [ngClass]="{'is-invalid': formularioMedicalRecord.get('reasons_for_visit')?.invalid && formularioMedicalRecord.get('reasons_for_visit')?.touched}">
             </div>
         </div>
 

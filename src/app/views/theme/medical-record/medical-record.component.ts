@@ -241,6 +241,16 @@ export class MedicalRecordComponent implements OnInit {
         });
       }
     } else {
+      // Validar campos específicos para el mensaje de advertencia
+      const lastCheckupControl = this.formularioMedicalRecord.get('last_checkup');
+      const reasonsForVisitControl = this.formularioMedicalRecord.get('reasons_for_visit');
+      let showedSpecificWarning = false;
+
+      if ((lastCheckupControl && lastCheckupControl.invalid) || (reasonsForVisitControl && reasonsForVisitControl.invalid)) {
+        this.toastr.warning('Faltan llenar algunos campos del examen visual', 'Advertencia', { positionClass: 'toast-top-right' });
+        showedSpecificWarning = true;
+      }
+
       // Recorre los controles y muestra los errores en consola para depuración
       Object.keys(this.formularioMedicalRecord.controls).forEach(key => {
         const control = this.formularioMedicalRecord.get(key);
@@ -250,7 +260,10 @@ export class MedicalRecordComponent implements OnInit {
       });
       console.log('Formulario inválido');
       this.formularioMedicalRecord.markAllAsTouched(); 
-      this.toastr.error('Por favor complete los campos obligatorios', 'Error',{ positionClass: 'toast-top-right' });
+      
+      if (!showedSpecificWarning) {
+        this.toastr.error('Por favor complete los campos obligatorios', 'Error',{ positionClass: 'toast-top-right' });
+      }
     }
   }
 
