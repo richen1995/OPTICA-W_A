@@ -16,8 +16,8 @@ import { registerrequest } from '../models/registerrequest';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:8080';
-  //private baseUrl = 'https://opticaw-aback-production.up.railway.app';
+  //private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'https://opticaw-aback-production.up.railway.app';
   //private baseUrl = 'https://optica-w-a-back.onrender.com';
 
 
@@ -27,12 +27,12 @@ export class ApiService {
   //PERSONA
   createPersona(persona: person): Observable<person> {
     return this.http.post<person>(this.baseUrl + "/person", persona);
-  }  
+  }
 
   updatePersona(persona: person): Observable<person> {
     return this.http.put<person>(this.baseUrl + "/person", persona);
   }
-  
+
   getPersonById(id: number): Observable<person> {
     return this.http.get<person>(`${this.baseUrl}/person/${id}`);
   }
@@ -45,11 +45,11 @@ export class ApiService {
   //HISTORIA CLÍNICA
   createMedicalRecord(historiaClinica: medicalRecord): Observable<medicalRecord> {
     return this.http.post<medicalRecord>(this.baseUrl + "/medicalRecord", historiaClinica);
-  }  
+  }
 
   updateMedicalRecord(historiaClinica: medicalRecord): Observable<medicalRecord> {
     return this.http.put<medicalRecord>(this.baseUrl + "/medicalRecord", historiaClinica);
-  }  
+  }
 
   // NUEVO: GUARDADO TRANSACCIONAL COMPLETO
   createFullMedicalRecord(fullData: MedicalRecordExtended): Observable<MedicalRecordExtended> {
@@ -67,20 +67,20 @@ export class ApiService {
   //LENSOMETRÍA
   createLensometry(lensometria: lensometry): Observable<lensometry> {
     return this.http.post<lensometry>(this.baseUrl + "/lensometry", lensometria);
-  }  
+  }
 
   updateLensometry(lensometria: lensometry): Observable<lensometry> {
     return this.http.put<lensometry>(this.baseUrl + "/lensometry", lensometria);
-  }  
+  }
 
   //AGUDEZA VISUAL
   createVisualAcuity(visualAcuity: visualAcuity): Observable<visualAcuity> {
     return this.http.post<visualAcuity>(this.baseUrl + "/visual_acuities", visualAcuity);
-  }  
+  }
 
   updateVisualAcuity(visualAcuity: visualAcuity): Observable<visualAcuity> {
     return this.http.put<visualAcuity>(this.baseUrl + "/visual_acuities", visualAcuity);
-  }  
+  }
 
   //REFRACCIÓN
   createRefraction(refraction: any): Observable<any> {
@@ -94,22 +94,22 @@ export class ApiService {
   //DIAGNÓSTICO ÓPTICO (RX)
   createRx(rx: rx): Observable<rx> {
     return this.http.post<rx>(this.baseUrl + "/rx", rx);
-  } 
+  }
 
   updateRx(rx: rx): Observable<rx> {
     return this.http.put<rx>(this.baseUrl + "/rx", rx);
-  } 
+  }
 
   // SRV PARA OBTENER EL JSON COMPLETO DE PERSONA + HISTORIA CLÍNICA + LENSOMETRÍA + AGUDEZA VISUAL + DIAGNÓSTICO ÓPTICO (RX)
   getFullPersonData(id: number): Observable<fullpersondata> {
     return this.http.get<fullpersondata>(`${this.baseUrl}/person/${id}`);
-  } 
+  }
 
   //SVR PARA OBTENER UN LISTADO DE JSON DE HISTORIAS CLÍNICAS COMPLETAS CON SUS RESPECTIVAS LENSOMETRÍAS, AGUDEZAS VISUALES Y DIAGNÓSTICOS ÓPTICOS (RX)
   getFullMedicalRecordData(id: number): Observable<fullmedicaldata> {
     return this.http.get<fullmedicaldata>(`${this.baseUrl}/medicalRecord/${id}`);
   }
-  
+
   //SVR PARA OBTENER UN LISTADO DE JSON DE HISTORIAS CLÍNICAS COMPLETAS CON SUS RESPECTIVAS LENSOMETRÍAS, AGUDEZAS VISUALES Y DIAGNÓSTICOS ÓPTICOS (RX)
   getFullMedicalRecordDataTotal(): Observable<MedicalRecordExtended> {
     return this.http.get<MedicalRecordExtended>(`${this.baseUrl}/medicalRecord`);
@@ -124,7 +124,7 @@ export class ApiService {
   getSearchMedicalRecord(identification?: string, fdesde?: string, fhasta?: string, name?: string): Observable<medicalRecord[]> {
     let params = new HttpParams()
       .set('identification', identification || '')
-    .set('fdesde', fdesde || '')
+      .set('fdesde', fdesde || '')
       .set('fhasta', fhasta || '')
       .set('name', name || '');
 
