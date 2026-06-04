@@ -16,8 +16,8 @@ import { registerrequest } from '../models/registerrequest';
 })
 export class ApiService {
 
-  //private baseUrl = 'http://localhost:8080';
-  private baseUrl = 'https://web-production-56c6c.up.railway.app';
+  private baseUrl = 'http://localhost:8080';
+  //private baseUrl = 'https://web-production-56c6c.up.railway.app';
   //private baseUrl = 'https://opticaw-aback-production.up.railway.app';
   //private baseUrl = 'https://optica-w-a-back.onrender.com';
 
