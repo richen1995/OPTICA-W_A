@@ -49,7 +49,7 @@
     </c-header-nav>
 
   </c-container>
-  <c-container [fluid]="true" class="px-4">
+  <c-container [fluid]="true" class="px-4 breadcrumb-wrapper" [class.breadcrumb-hidden]="scrolledDown()">
     <c-breadcrumb-router />
   </c-container>
 </ng-container>

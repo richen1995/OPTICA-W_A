@@ -58,7 +58,7 @@
               <div class="col-12 col-md-4" *ngFor="let field of ['identification']">
                 <div class="form-floating position-relative">
                   <input type="text" class="form-control border-primary pe-5" [formControlName]="field" id="floatId" placeholder="Cédula" 
-                         (blur)="buscarPaciente()" (keyup.enter)="buscarPaciente()"
+                         (keyup.enter)="buscarPaciente()"
                          [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
                          [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
                   <label for="floatId"><i class="bi bi-person-search me-1 text-primary"></i> Cédula (Buscar)</label>
@@ -67,15 +67,26 @@
                   <div class="position-absolute top-50 end-0 translate-middle-y pe-3" *ngIf="isSearching" style="z-index: 10;">
                     <mat-spinner diameter="25"></mat-spinner>
                   </div>
-                </div>
-              </div>
 
-              <div class="col-12 col-md-4" *ngFor="let field of ['last_name']">
-                <div class="form-floating">
-                  <input type="text" class="form-control" [formControlName]="field" id="floatLast" placeholder="Apellidos"
-                         [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
-                         [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
-                  <label for="floatLast"><i class="bi bi-person me-1"></i> Apellidos</label>
+                  <!-- Contenedor de botones de acción en el input -->
+                  <div class="position-absolute top-50 translate-middle-y d-flex align-items-center gap-2" 
+                       *ngIf="!isSearching" 
+                       [style.right]="(formulario.get('identification')?.touched && (formulario.get('identification')?.invalid || formulario.get('identification')?.valid)) ? '2.25rem' : '0.5rem'"
+                       style="z-index: 10;">
+                    <!-- Botón buscar por nombre/apellido -->
+                    <button type="button" class="btn btn-link p-0 text-decoration-none" 
+                            (click)="abrirBuscadorPorNombre()" 
+                            title="Buscar por Nombre y Apellido">
+                      <i class="bi bi-search text-primary" style="font-size: 1.1rem;"></i>
+                    </button>
+                    <!-- Botón generar ID temporal -->
+                    <button type="button" class="btn btn-link p-0 text-decoration-none" 
+                            *ngIf="!formulario.get('identification')?.value" 
+                            (click)="generarIdTemporal()" 
+                            title="Generar ID Temporal">
+                      <i class="bi bi-magic text-primary" style="font-size: 1.1rem;"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -85,6 +96,15 @@
                          [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
                          [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
                   <label for="floatFirst"><i class="bi bi-person me-1"></i> Nombres</label>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4" *ngFor="let field of ['last_name']">
+                <div class="form-floating">
+                  <input type="text" class="form-control" [formControlName]="field" id="floatLast" placeholder="Apellidos"
+                         [class.is-invalid]="formulario.get(field)?.invalid && formulario.get(field)?.touched"
+                         [class.is-valid]="formulario.get(field)?.valid && formulario.get(field)?.touched">
+                  <label for="floatLast"><i class="bi bi-person me-1"></i> Apellidos</label>
                 </div>
               </div>
 

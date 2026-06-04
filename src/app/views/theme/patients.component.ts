@@ -87,7 +87,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
       first_name: ['', [Validators.required, Validators.minLength(3)]],
       place_birth: ['', Validators.required], 
       f_birthdate: ['', Validators.required],
-      identification: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
+      identification: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
       gender: ['Masculino', Validators.required],
       ocupation: ['', Validators.required],
       email: ['', [Validators.email]],
@@ -109,10 +109,18 @@ export class PatientsComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(value => {
+        if (this.idPerson !== 0) {
+          // Si ya hay un paciente cargado, no buscamos automáticamente para permitir editar su cédula TEMP-
+          return;
+        }
         if (value && value.length >= 5) {
           this.buscarPaciente();
         } else if (!value || value.length === 0) {
-          this.limpiarFormularioCompleto();
+          this.desbloquearCampos();
+          this.idPerson = 0;
+          this.idMedicalRecord = 0;
+          this.isMedicalRecordCreated = false;
+          this.lastSearchedId = '';
         }
       });
 
@@ -152,8 +160,17 @@ export class PatientsComponent implements OnInit, OnDestroy {
   }
 
   bloquearCampos() {
-    const camposABloquear = ['identification', 'last_name', 'first_name', 'place_birth', 'f_birthdate', 'gender', 'provenance'];
+    const camposABloquear = ['last_name', 'first_name', 'place_birth', 'f_birthdate', 'gender', 'provenance'];
     camposABloquear.forEach(campo => this.formulario.get(campo)?.disable());
+
+    const identificationValue = this.formulario.get('identification')?.value || '';
+    const isTempId = typeof identificationValue === 'string' && identificationValue.startsWith('TEMP-');
+    
+    if (isTempId) {
+      this.formulario.get('identification')?.enable();
+    } else {
+      this.formulario.get('identification')?.disable();
+    }
   }
 
   desbloquearCampos() {
@@ -479,6 +496,153 @@ export class PatientsComponent implements OnInit, OnDestroy {
     return edad;
   }
 
+  generarIdTemporal() {
+    const timestamp = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14);
+    const idTemporal = `TEMP-${timestamp}`;
+    this.formulario.patchValue({ identification: idTemporal });
+  }
+
+  abrirBuscadorPorNombre() {
+    Swal.fire({
+      title: 'Buscar Paciente',
+      text: 'Ingrese los nombres y/o apellidos del paciente:',
+      input: 'text',
+      inputPlaceholder: 'Ej: Juan Pérez',
+      showCancelButton: true,
+      confirmButtonText: 'Buscar',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        container: 'swal2-backdrop-premium',
+        popup: 'premium-swal animate__animated animate__zoomIn',
+        title: 'premium-swal-title',
+        htmlContainer: 'premium-swal-content',
+        confirmButton: 'btn btn-primary premium-confirm mx-2',
+        cancelButton: 'btn btn-danger premium-cancel mx-2'
+      },
+      buttonsStyling: false,
+      inputValidator: (value) => {
+        if (!value) {
+          return '¡Debe ingresar un nombre o apellido!';
+        }
+        return null;
+      }
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        this.ejecutarBusquedaPorNombre(result.value);
+      }
+    });
+  }
+
+  ejecutarBusquedaPorNombre(termino: string) {
+    this.isSearching = true;
+    this.personaService.getSearchMedicalRecord(undefined, undefined, undefined, termino)
+      .pipe(finalize(() => this.isSearching = false))
+      .subscribe({
+        next: (records: any[]) => {
+          if (!records || records.length === 0) {
+            this.toastr.warning('No se encontraron pacientes con ese nombre/apellido', 'Búsqueda');
+            return;
+          }
+
+          // Agrupar por persona para evitar duplicados si tienen múltiples historias
+          const personasMap = new Map<number, person>();
+          records.forEach(r => {
+            if (r.person && r.person.id_person) {
+              personasMap.set(r.person.id_person, r.person);
+            }
+          });
+
+          const personasUnicas = Array.from(personasMap.values());
+
+          if (personasUnicas.length === 1) {
+            this.cargarPacienteSeleccionado(personasUnicas[0]);
+          } else {
+            this.mostrarSeleccionPacientes(personasUnicas);
+          }
+        },
+        error: (err) => {
+          this.toastr.error('Error al realizar la búsqueda', 'Error');
+          console.error(err);
+        }
+      });
+  }
+
+  cargarPacienteSeleccionado(persona: person) {
+    this.toastr.success('Paciente cargado correctamente', 'Búsqueda');
+    this.objPerson = persona;
+    this.idPerson = persona.id_person!;
+    this.idMedicalRecord = 0; 
+    this.objMedicalRecord = {} as any; 
+    this.isMedicalRecordCreated = false; 
+    this.isComplete = false; 
+    this.isSaving = false;
+
+    const genderNormalized = persona.gender === 'MASCULINO' ? 'Masculino' : 
+                            persona.gender === 'FEMENINO'  ? 'Femenino' : persona.gender;
+    const provenanceNormalized = persona.provenance ? 
+                                persona.provenance.charAt(0).toUpperCase() + persona.provenance.slice(1).toLowerCase() : 
+                                persona.provenance;
+
+    this.formulario.patchValue({
+      id_person: persona.id_person,
+      identification: persona.identification,
+      last_name: persona.last_name,
+      first_name: persona.first_name,
+      place_birth: persona.place_birth,
+      f_birthdate: persona.f_birthdate,
+      gender: genderNormalized,
+      ocupation: persona.ocupation || persona.charge,
+      email: persona.email,
+      address: persona.address,
+      phone: persona.phone,
+      provenance: provenanceNormalized
+    });
+    this.lastSearchedId = persona.identification;
+    this.edad = this.calcularEdad();
+    this.bloquearCampos();
+    this.formulario.markAsPristine();
+  }
+
+  mostrarSeleccionPacientes(personas: person[]) {
+    const inputOptions: { [key: string]: string } = {};
+    personas.forEach(p => {
+      inputOptions[p.id_person!.toString()] = `${p.last_name} ${p.first_name} (CI: ${p.identification})`;
+    });
+
+    Swal.fire({
+      title: 'Seleccione un Paciente',
+      input: 'select',
+      inputOptions: inputOptions,
+      inputPlaceholder: 'Seleccione el paciente de la lista',
+      showCancelButton: true,
+      confirmButtonText: 'Cargar',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        container: 'swal2-backdrop-premium',
+        popup: 'premium-swal animate__animated animate__zoomIn',
+        title: 'premium-swal-title',
+        htmlContainer: 'premium-swal-content',
+        confirmButton: 'btn btn-success premium-confirm mx-2',
+        cancelButton: 'btn btn-danger premium-cancel mx-2'
+      },
+      buttonsStyling: false,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Debe seleccionar un paciente';
+        }
+        return null;
+      }
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        const idSeleccionado = Number(result.value);
+        const personaSeleccionada = personas.find(p => p.id_person === idSeleccionado);
+        if (personaSeleccionada) {
+          this.cargarPacienteSeleccionado(personaSeleccionada);
+        }
+      }
+    });
+  }
+
   private lastSearchedId: string = '';
 
   buscarPaciente() {
@@ -490,6 +654,11 @@ export class PatientsComponent implements OnInit, OnDestroy {
       .pipe(finalize(() => this.isSearching = false))
       .subscribe({
         next: (response: any) => {
+          // Si el valor actual en el input cambió mientras se realizaba la búsqueda, descartamos la respuesta
+          const currentValue = this.formulario.get('identification')?.value;
+          if (currentValue !== identificationValue) {
+            return;
+          }
           const persona = Array.isArray(response) ? response[0] : response;
           if (persona) {
             this.toastr.success('Paciente encontrado, cargando datos...', 'Búsqueda');
@@ -525,7 +694,12 @@ export class PatientsComponent implements OnInit, OnDestroy {
             this.limpiarParaNuevoPaciente(identificationValue);
           }
         },
-        error: (err) => this.limpiarParaNuevoPaciente(identificationValue)
+        error: (err) => {
+          const currentValue = this.formulario.get('identification')?.value;
+          if (currentValue === identificationValue) {
+            this.limpiarParaNuevoPaciente(identificationValue);
+          }
+        }
       });
     }
   }
@@ -595,14 +769,20 @@ export class PatientsComponent implements OnInit, OnDestroy {
   limpiarParaNuevoPaciente(cedula: string) {
     this.desbloquearCampos();
     this.toastr.warning('Paciente no registrado, puede ingresar los datos', 'Nuevo Paciente');
-    this.formulario.reset();
-    this.formulario.patchValue({ 
-      identification: cedula,
-      gender: 'Masculino',
-      provenance: 'Sierra',
-      f_creation: new Date().toISOString(),
-      f_update: new Date().toISOString()
-    });
+    if (this.idPerson !== 0) {
+      this.formulario.reset();
+      this.formulario.patchValue({ 
+        identification: cedula,
+        gender: 'Masculino',
+        provenance: 'Sierra',
+        f_creation: new Date().toISOString(),
+        f_update: new Date().toISOString()
+      });
+    } else {
+      this.formulario.patchValue({ 
+        identification: cedula
+      }, { emitEvent: false });
+    }
     this.idPerson = 0;
     this.idMedicalRecord = 0; 
     this.isMedicalRecordCreated = false; 

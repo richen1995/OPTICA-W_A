@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, HostListener, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 import {
@@ -68,6 +68,57 @@ export class DefaultHeaderComponent extends HeaderComponent {
   }
 
   sidebarId = input('sidebar1');
+
+  // Scroll detection for breadcrumb hide/show
+  scrolledDown = signal(false);
+  private lastScrollY = 0;
+  private readonly scrollThreshold = 24;
+  private readonly scrollLockDelay = 120;
+  private scrollLockedUntil = 0;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const currentScrollY = window.scrollY || document.documentElement.scrollTop;
+    const now = Date.now();
+
+    if (currentScrollY <= 10) {
+      // Al llegar al tope, siempre mostrar
+      this.scrolledDown.set(false);
+      this.lastScrollY = currentScrollY;
+      return;
+    }
+
+    if (now < this.scrollLockedUntil) {
+      this.lastScrollY = currentScrollY;
+      return;
+    }
+
+    const scrollDiff = currentScrollY - this.lastScrollY;
+
+    if (Math.abs(scrollDiff) < this.scrollThreshold) {
+      return;
+    }
+
+    if (scrollDiff > 0 && !this.scrolledDown()) {
+      // Scrolling hacia abajo
+      this.scrolledDown.set(true);
+      this.scrollLockedUntil = now + this.scrollLockDelay;
+    } else if (scrollDiff < 0 && this.scrolledDown()) {
+      // Scrolling hacia arriba
+      this.scrolledDown.set(false);
+      this.scrollLockedUntil = now + this.scrollLockDelay;
+    }
+
+    this.lastScrollY = currentScrollY;
+  }
+
+  @HostListener('window:resize', [])
+  onWindowResize(): void {
+    if (window.scrollY <= 10) {
+      this.scrolledDown.set(false);
+      this.lastScrollY = window.scrollY || document.documentElement.scrollTop;
+    }
+  }
 
   public newMessages = [
     {
