@@ -160,7 +160,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
   }
 
   bloquearCampos() {
-    const camposABloquear = ['last_name', 'first_name', 'place_birth', 'f_birthdate', 'gender', 'provenance'];
+    const camposABloquear = ['f_birthdate', 'gender', 'provenance'];
     camposABloquear.forEach(campo => this.formulario.get(campo)?.disable());
 
     const identificationValue = this.formulario.get('identification')?.value || '';
