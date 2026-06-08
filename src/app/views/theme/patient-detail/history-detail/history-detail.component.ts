@@ -190,7 +190,7 @@ export class HistoryDetailComponent implements OnInit {
           <div style="margin-bottom: 10px; font-size: 12px; border: 1px solid #eee; padding: 5px 10px; border-radius: 5px;">
             <div class="row">
               <div class="col-8"><strong>Paciente:</strong> ${this.objMedicalRecordsExtended?.person.first_name} ${this.objMedicalRecordsExtended?.person.last_name}</div>
-              <div class="col-4"><strong>Cédula:</strong> ${this.objMedicalRecordsExtended?.person.identification}</div>
+              <div class="col-4"><strong>Cédula:</strong> ${this.objMedicalRecordsExtended?.person.identification?.startsWith('TEMP-') ? '' : this.objMedicalRecordsExtended?.person.identification}</div>
             </div>
             <div class="row">
               <div class="col-8"><strong>Ocupación:</strong> ${this.objMedicalRecordsExtended?.person.ocupation || this.objMedicalRecordsExtended?.person.charge || 'N/A'}</div>

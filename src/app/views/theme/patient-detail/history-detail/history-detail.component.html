@@ -359,12 +359,12 @@
         
         <div class="row g-3">
           <div class="col-md-6 border-end">
-            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Observaciones Clínicas</small>
+            <small class="text-uppercase fw-bold d-block mb-1" style="font-size: 10px;">Observaciones Clínicas</small>
             <p class="mb-0" style="font-size: 13px;"><i class="bi bi-chat-left-dots me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.observations || 'Sin observaciones' }}</p>
           </div>
           <div class="col-md-6 ps-md-4">
-            <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 10px;">Tratamiento Recomendado</small>
-            <p class="mb-0 fw-semibold" style="font-size: 13px;"><i class="bi bi-clipboard2-check me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.treatment || 'No especificado' }}</p>
+            <small class="text-uppercase fw-bold d-block mb-1" style="font-size: 10px;">Tratamiento Recomendado</small>
+            <p class="mb-0" style="font-size: 13px;"><i class="bi bi-clipboard2-check me-2 text-success"></i>{{ objMedicalRecordsExtended?.rx?.[0]?.treatment || 'No especificado' }}</p>
           </div>
         </div>
       </mat-card>
